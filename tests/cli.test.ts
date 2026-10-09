@@ -28,8 +28,9 @@ function startCli(args: string[]): Promise<{ url: string; kill: () => void; out:
     let out = "";
     const onData = (d: Buffer) => {
       out += d.toString();
+      // The banner is complete once the "Admin API" line (printed last) has arrived.
       const m = out.match(/Dashboard\s+(\S+?)\/\s/);
-      if (m) res({ url: m[1], kill: () => p.kill("SIGTERM"), out: () => out });
+      if (m && out.includes("Admin API")) res({ url: m[1], kill: () => p.kill("SIGTERM"), out: () => out });
     };
     p.stdout.on("data", onData);
     p.stderr.on("data", onData);
