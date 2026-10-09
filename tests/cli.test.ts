@@ -46,7 +46,7 @@ describe("cli", () => {
   afterAll(() => app.close());
 
   it("--version and services --json", () => {
-    expect(run(["--version"]).stdout.trim()).toBe("0.1.0");
+    expect(run(["--version"]).stdout.trim()).toBe("0.1.1");
     const list = JSON.parse(run(["services", "--json"]).stdout);
     expect(list.map((p: { name: string }) => p.name)).toEqual(["zarinpal", "zibal", "kavenegar", "smsir"]);
   });

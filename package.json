@@ -1,6 +1,6 @@
 {
   "name": "mihanstack",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "The local development cloud for Iranian services: emulate Zarinpal, Zibal, Kavenegar and SMS.ir locally, with scenarios, chaos, webhooks and record/replay.",
   "keywords": ["iran", "zarinpal", "zibal", "kavenegar", "sms.ir", "emulator", "mock", "localstack", "payment-gateway", "testing"],
   "license": "MIT",

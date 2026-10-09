@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: mrzroot/mihanstack@v0.1.0
+      - uses: mrzroot/mihanstack@v0.1.1
         id: mihan
         with:
           config: mihanstack.yml          # optional

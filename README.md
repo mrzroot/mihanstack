@@ -184,7 +184,7 @@ It works fully offline (no CDN, no web fonts) and switches between English and P
 ### Use in CI (GitHub Actions)
 
 ```yaml
-- uses: mrzroot/mihanstack@v0.1.0
+- uses: mrzroot/mihanstack@v0.1.1
   id: mihan
   with:
     scenarios: |
@@ -227,7 +227,7 @@ mihanstack inbox     [--receptor] [--last]
 
 ### Status
 
-v0.1.0. **Not published to npm or Docker Hub yet**: use `npx github:mrzroot/mihanstack` (builds on install)
+v0.1.1. **Not published to npm or Docker Hub yet**: use `npx github:mrzroot/mihanstack` (builds on install)
 or build the Docker image yourself. The provider emulations are based on public documentation and have not
 been checked byte-for-byte against live production responses.
 
@@ -321,7 +321,7 @@ npx github:mrzroot/mihanstack chaos payment --rate 0.3
 
 ### استفاده در CI
 
-اکشن `mrzroot/mihanstack@v0.1.0` را در گردش‌کار گیت‌هاب اضافه کنید تا پیش از اجرای تست‌ها، میهن‌استک بالا بیاید.
+اکشن `mrzroot/mihanstack@v0.1.1` را در گردش‌کار گیت‌هاب اضافه کنید تا پیش از اجرای تست‌ها، میهن‌استک بالا بیاید.
 نمونه در `examples/ci-usage.yml`.
 
 ### وضعیت
