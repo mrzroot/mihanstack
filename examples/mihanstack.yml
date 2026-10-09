@@ -1,0 +1,35 @@
+# mihanstack.yml · The local development cloud for Iranian services
+port: 8585
+host: 127.0.0.1
+
+services:
+  zarinpal:
+    scenario: success          # success | failed | duplicate_callback | wrong_amount | invalid_signature
+                               # merchant_disabled | timeout | network_error | server_error | latency
+    latency: 0                 # ms, or a range like "100-800"
+    autoRedirect: false        # true: StartPay redirects immediately (handy in CI)
+  zibal:
+    scenario: success
+    options:
+      merchants: [zibal]       # accepted merchant ids (empty = accept any)
+  kavenegar:
+    scenario: success
+    options:
+      apiKeys: []              # accepted API keys (empty = accept any)
+      templates:
+        verify: "کد تایید شما: %token%"
+  smsir:
+    scenario: success
+    options:
+      templates:
+        "100000": "کد ورود شما #CODE# است"
+
+# Random failure injection (also: `mihanstack chaos payment --rate 0.3`)
+chaos:
+  enabled: false
+  category: all                # all | payment | sms | network | <service name>
+  rate: 0.3
+
+# plugins:
+#   - ./my-provider.mjs        # default export = defineProvider({...})
+# replay: ./fixtures           # serve recorded fixtures offline

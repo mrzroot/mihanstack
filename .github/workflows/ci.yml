@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: test (node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [18, 20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run build
+      - run: npm test
+
+  docker:
+    name: docker image smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t mihanstack:ci .
+      - run: docker run -d --name ms -p 8585:8585 mihanstack:ci
+      - name: Wait for health and call Zarinpal
+        run: |
+          for i in $(seq 1 30); do curl -fsS http://localhost:8585/_mihan/health && break; sleep 1; done
+          curl -fsS -X POST http://localhost:8585/zarinpal/pg/v4/payment/request.json \
+            -H 'content-type: application/json' \
+            -d '{"merchant_id":"1344b5d4-0048-11e8-94db-005056a205be","amount":10000,"callback_url":"http://localhost/cb","description":"ci"}' \
+            | tee /dev/stderr | grep -q '"code":100'
+          curl -fsS http://localhost:8585/ | grep -q MihanStack
+      - if: always()
+        run: docker logs ms
+
+  action:
+    name: GitHub Action self-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: mihan
+        uses: ./
+        with:
+          scenarios: |
+            zibal=wrong_amount
+      - name: Use the emulator like an app would
+        env:
+          URL: ${{ steps.mihan.outputs.url }}
+        run: |
+          set -euo pipefail
+          test "$URL" = "$MIHANSTACK_URL"
+          # OTP via Kavenegar, then read it back from the inbox
+          curl -fsS "$URL/kavenegar/v1/TEST/verify/lookup.json?receptor=09121234567&token=4521&template=login" > /dev/null
+          curl -fsS "$URL/_mihan/sms?receptor=09121234567&last=1" | grep -q 4521
+          # Zibal wrong_amount scenario from the action input
+          track=$(curl -fsS -X POST "$URL/zibal/v1/request" -H 'content-type: application/json' \
+            -d '{"merchant":"zibal","amount":50000,"callbackUrl":"http://localhost/cb"}' | python3 -c 'import json,sys; print(json.load(sys.stdin)["trackId"])')
+          curl -s -o /dev/null -w '%{http_code}\n' "$URL/zibal/start/$track" | grep -q 302
+          amount=$(curl -fsS -X POST "$URL/zibal/v1/verify" -H 'content-type: application/json' \
+            -d "{\"merchant\":\"zibal\",\"trackId\":$track}" | python3 -c 'import json,sys; print(json.load(sys.stdin)["amount"])')
+          test "$amount" != "50000"

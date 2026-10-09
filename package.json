@@ -1,0 +1,38 @@
+{
+  "name": "mihanstack",
+  "version": "0.1.0",
+  "description": "The local development cloud for Iranian services: emulate Zarinpal, Zibal, Kavenegar and SMS.ir locally, with scenarios, chaos, webhooks and record/replay.",
+  "keywords": ["iran", "zarinpal", "zibal", "kavenegar", "sms.ir", "emulator", "mock", "localstack", "payment-gateway", "testing"],
+  "license": "MIT",
+  "author": "mrzroot",
+  "homepage": "https://github.com/mrzroot/mihanstack#readme",
+  "repository": { "type": "git", "url": "git+https://github.com/mrzroot/mihanstack.git" },
+  "bugs": "https://github.com/mrzroot/mihanstack/issues",
+  "type": "module",
+  "bin": { "mihanstack": "dist/cli.js" },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" }
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "engines": { "node": ">=18.17" },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "start": "node dist/cli.js start",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "prepare": "tsup"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "yaml": "^2.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "tsup": "^8.2.0",
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0"
+  }
+}

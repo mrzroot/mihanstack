@@ -1,0 +1,19 @@
+# .github/workflows/test.yml in YOUR project: run integration tests against MihanStack.
+name: test
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: mrzroot/mihanstack@v0.1.0
+        id: mihan
+        with:
+          config: mihanstack.yml          # optional
+          scenarios: zarinpal=success     # optional overrides
+      - run: npm ci && npm test
+        env:
+          ZARINPAL_BASE_URL: ${{ steps.mihan.outputs.url }}/zarinpal
+          ZIBAL_BASE_URL: ${{ steps.mihan.outputs.url }}/zibal
+          KAVENEGAR_BASE_URL: ${{ steps.mihan.outputs.url }}/kavenegar
+          SMSIR_BASE_URL: ${{ steps.mihan.outputs.url }}/smsir

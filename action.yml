@@ -1,0 +1,97 @@
+name: "MihanStack (میهن‌استک)"
+description: "Run a local emulator of Iranian services (Zarinpal, Zibal, Kavenegar, SMS.ir) in CI: no real money, API keys or internet."
+author: "mrzroot"
+branding:
+  icon: "server"
+  color: "green"
+
+inputs:
+  port:
+    description: "Port to listen on"
+    required: false
+    default: "8585"
+  config:
+    description: "Path to mihanstack.yml (relative to the workspace). Optional."
+    required: false
+    default: ""
+  scenarios:
+    description: "Scenario overrides, one per line or comma-separated: zarinpal=wrong_amount"
+    required: false
+    default: ""
+  chaos:
+    description: "Enable chaos for a category: all | payment | sms | network | <service>"
+    required: false
+    default: ""
+  chaos-rate:
+    description: "Chaos failure rate (0..1)"
+    required: false
+    default: "0.3"
+  auto-redirect:
+    description: "Payment pages redirect immediately (no click needed)"
+    required: false
+    default: "true"
+  replay:
+    description: "Fixture directory to replay (relative to the workspace). Optional."
+    required: false
+    default: ""
+  node-version:
+    description: "Node.js version"
+    required: false
+    default: "20"
+
+outputs:
+  url:
+    description: "Base URL of the running MihanStack, e.g. http://127.0.0.1:8585"
+    value: ${{ steps.start.outputs.url }}
+  log:
+    description: "Path to the MihanStack log file"
+    value: ${{ steps.start.outputs.log }}
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Install MihanStack
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: npm ci --no-audit --no-fund --silent
+
+    - name: Start MihanStack
+      id: start
+      shell: bash
+      env:
+        IN_PORT: ${{ inputs.port }}
+        IN_CONFIG: ${{ inputs.config }}
+        IN_SCENARIOS: ${{ inputs.scenarios }}
+        IN_CHAOS: ${{ inputs.chaos }}
+        IN_RATE: ${{ inputs.chaos-rate }}
+        IN_AUTO: ${{ inputs.auto-redirect }}
+        IN_REPLAY: ${{ inputs.replay }}
+        CLI: ${{ github.action_path }}/dist/cli.js
+      run: |
+        set -euo pipefail
+        args=(start --host 127.0.0.1 --port "$IN_PORT")
+        [ -n "$IN_CONFIG" ] && args+=(--config "$GITHUB_WORKSPACE/$IN_CONFIG")
+        [ "$IN_AUTO" = "true" ] && args+=(--auto-redirect)
+        if [ -n "$IN_SCENARIOS" ]; then
+          for s in $(echo "$IN_SCENARIOS" | tr ',\n' '  '); do args+=(--scenario "$s"); done
+        fi
+        [ -n "$IN_CHAOS" ] && args+=(--chaos "$IN_CHAOS" --rate "$IN_RATE")
+        [ -n "$IN_REPLAY" ] && args+=(--replay "$GITHUB_WORKSPACE/$IN_REPLAY")
+        log="$RUNNER_TEMP/mihanstack.log"
+        nohup node "$CLI" "${args[@]}" > "$log" 2>&1 &
+        url="http://127.0.0.1:$IN_PORT"
+        for i in $(seq 1 60); do
+          if curl -fsS "$url/_mihan/health" > /dev/null 2>&1; then
+            cat "$log"
+            echo "url=$url" >> "$GITHUB_OUTPUT"
+            echo "log=$log" >> "$GITHUB_OUTPUT"
+            echo "MIHANSTACK_URL=$url" >> "$GITHUB_ENV"
+            exit 0
+          fi
+          sleep 0.5
+        done
+        echo "::error::MihanStack did not become healthy"; cat "$log"; exit 1
