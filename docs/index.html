@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en" data-lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MihanStack · The local development cloud for Iranian services</title>
+<meta name="description" content="Emulate Zarinpal, Zibal, Kavenegar and SMS.ir on localhost: real request formats and error codes, failure scenarios, chaos mode, webhook playground, record/replay with redaction, plugins and an RTL-aware dashboard. npx or Docker, plus a GitHub Action.">
+<meta name="theme-color" content="#070b14">
+<meta name="color-scheme" content="dark">
+<meta property="og:title" content="MihanStack · میهن‌استک">
+<meta property="og:description" content="The local development cloud for Iranian services: Zarinpal, Zibal, Kavenegar and SMS.ir on localhost.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mrzroot.github.io/mihanstack/">
+<meta property="og:image" content="https://mrzroot.github.io/mihanstack/dashboard-en.png">
+<link rel="canonical" href="https://mrzroot.github.io/mihanstack/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<script>(function(){var d=document.documentElement,l='en';try{l=new URLSearchParams(location.search).get('lang')||localStorage.getItem('mrz-lang')||'en'}catch(e){}if(l==='fa'){d.lang='fa';d.dir='rtl';d.setAttribute('data-lang','fa')}})()</script>
+<style>
+@font-face{font-family:Vazirmatn;src:url(fonts/vazirmatn-arabic.woff2) format('woff2');font-weight:400 800;font-display:swap;unicode-range:U+0600-06FF,U+0750-077F,U+200C-200E,U+FB50-FDFF,U+FE70-FEFC}
+:root{--bg:#070b14;--bg2:#0b1222;--panel:#0e1729;--panel2:#111d33;--line:#1c2a45;--line2:#273a5e;--fg:#e8eefc;--mut:#8b9bbd;--dim:#5d6e92;
+--teal:#2ee6c5;--saf:#ffb547;--rose:#ff6b8b;--blue:#6aa7ff;--ok:#3ee08f;--bad:#ff6b6b;
+--sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,Vazirmatn,sans-serif;--fa:Vazirmatn,"Segoe UI",Tahoma,sans-serif;--mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;color:var(--fg);font:16px/1.65 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+html[data-lang=fa] body{font-family:var(--fa);line-height:1.9}
+html[data-lang=en] [lang=fa],html[data-lang=fa] [lang=en]{display:none!important}
+a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}
+code,.mono{font-family:var(--mono)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+/* header */
+.top{position:sticky;top:0;z-index:20;background:rgba(7,11,20,.78);backdrop-filter:blur(12px) saturate(1.3);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:22px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--fg);font-weight:750;letter-spacing:-.01em}
+.brand img{width:30px;height:30px}.brand small{font:500 12px var(--mono);color:var(--dim);margin-inline-start:2px}
+.top nav{display:flex;gap:20px;margin-inline-start:auto;align-items:center}
+.top nav a{color:var(--mut);font-size:14.5px}.top nav a:hover{color:var(--fg);text-decoration:none}
+.lang{display:inline-flex;border:1px solid var(--line2);border-radius:9px;overflow:hidden}
+.lang button{all:unset;cursor:pointer;padding:5px 11px;font:600 13px var(--sans);color:var(--mut)}
+.lang button[aria-pressed=true]{background:var(--saf);color:#1a1200}
+.gh{display:inline-flex;align-items:center;gap:6px;color:var(--fg)!important;border:1px solid var(--line2);padding:6px 12px;border-radius:9px;font-size:14px}
+/* hero */
+.hero{position:relative;padding:84px 0 70px;overflow:hidden;isolation:isolate}
+.hero:before{content:"";position:absolute;inset:0;z-index:-2;background:
+ radial-gradient(700px 380px at 12% 8%,rgba(46,230,197,.16),transparent 70%),
+ radial-gradient(640px 360px at 92% 18%,rgba(255,181,71,.14),transparent 70%)}
+.hero:after{content:"";position:absolute;inset:0;z-index:-1;opacity:.55;background-image:
+ url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cpath d='M32 6l4.6 11.2L48 13l-4.2 11.4L55 29l-11.2 4.6L48 45l-11.4-4.2L32 52l-4.6-11.2L16 45l4.2-11.4L9 29l11.2-4.6L16 13l11.4 4.2z' fill='none' stroke='%231c2a45' stroke-width='1'/%3E%3C/svg%3E");
+ -webkit-mask-image:radial-gradient(70% 60% at 50% 30%,#000,transparent);mask-image:radial-gradient(70% 60% at 50% 30%,#000,transparent)}
+.hgrid{display:grid;grid-template-columns:1.02fr 1fr;gap:48px;align-items:center}
+.tag{display:inline-flex;align-items:center;gap:10px;padding:5px 12px 5px 6px;border:1px solid var(--line2);border-radius:999px;background:rgba(14,23,41,.7);font-size:13px;color:var(--mut)}
+.tag b{font:700 11px var(--mono);background:var(--teal);color:#032019;padding:3px 8px;border-radius:999px}
+html[dir=rtl] .tag{padding:5px 6px 5px 12px}
+h1{font-size:clamp(38px,5.6vw,68px);line-height:1.02;letter-spacing:-.045em;margin:22px 0 18px;font-weight:800}
+html[data-lang=fa] h1{letter-spacing:-.01em;line-height:1.3}
+h1 .hl{background:linear-gradient(90deg,var(--saf),#ffd27a 40%,var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:clamp(17px,1.8vw,19.5px);color:var(--mut);max-width:600px;margin:0}
+.lead b{color:var(--fg);font-weight:600}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin:30px 0 22px}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:12px 18px;border-radius:11px;font-weight:650;font-size:15px;border:1px solid var(--line2);color:var(--fg);background:var(--panel)}
+.btn:hover{text-decoration:none;border-color:var(--teal)}
+.btn.p{background:var(--saf);color:#1a1200;border-color:var(--saf);box-shadow:0 10px 30px -10px rgba(255,181,71,.6)}
+.btn.p:hover{background:#ffc66e}
+.cmd{display:flex;align-items:center;gap:10px;max-width:560px;background:#050810;border:1px solid var(--line2);border-radius:12px;padding:11px 12px 11px 16px;font:14px/1.4 var(--mono);direction:ltr;text-align:left}
+.cmd .ps{color:var(--teal);user-select:none}.cmd code{flex:1;overflow-x:auto;white-space:nowrap;color:#dfe8ff}
+.copy{all:unset;cursor:pointer;font:600 12px var(--sans);color:var(--mut);border:1px solid var(--line2);padding:5px 10px;border-radius:8px}
+.copy:hover{color:var(--fg);border-color:var(--teal)}.copy.ok{color:var(--ok);border-color:var(--ok)}
+.meta{display:flex;flex-wrap:wrap;gap:18px;margin-top:18px;font-size:13px;color:var(--dim)}
+.meta span:before{content:"✓ ";color:var(--teal)}
+/* console simulator */
+.console{border:1px solid var(--line2);border-radius:18px;background:linear-gradient(180deg,var(--panel2),var(--panel));box-shadow:0 40px 80px -30px rgba(0,0,0,.8),0 0 0 1px rgba(46,230,197,.05);overflow:hidden;direction:ltr;text-align:left}
+.cbar{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--line);font:12px var(--mono);color:var(--dim)}
+.cbar i{width:10px;height:10px;border-radius:50%;background:#26324d}.cbar i:nth-child(1){background:#ff6b6b}.cbar i:nth-child(2){background:#ffb547}.cbar i:nth-child(3){background:#3ee08f}
+.cbar span{margin-left:8px}.cbar em{margin-left:auto;font-style:normal;color:var(--teal)}
+.ctl{padding:14px;display:grid;gap:10px;border-bottom:1px solid var(--line)}
+.row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.row label{font:600 11px var(--mono);color:var(--dim);text-transform:uppercase;letter-spacing:.08em;width:70px}
+.chip{all:unset;cursor:pointer;font:12.5px var(--mono);padding:5px 10px;border-radius:7px;border:1px solid var(--line2);color:var(--mut);transition:.15s}
+.chip:hover{color:var(--fg);border-color:var(--dim)}
+.chip[aria-pressed=true]{color:#041a15;background:var(--teal);border-color:var(--teal)}
+.chip.sc[aria-pressed=true]{background:var(--saf);border-color:var(--saf);color:#1a1200}
+.run{all:unset;cursor:pointer;margin-left:auto;font:700 13px var(--sans);padding:7px 16px;border-radius:8px;background:var(--saf);color:#1a1200}
+.run:disabled{opacity:.5;cursor:wait}
+.log{height:330px;overflow:auto;padding:12px 14px;font:12.5px/1.6 var(--mono);color:#c7d3ef;scroll-behavior:smooth}
+.log p{margin:0 0 4px;opacity:0;transform:translateY(4px);animation:in .25s forwards}
+@keyframes in{to{opacity:1;transform:none}}
+.log .m{color:var(--blue);font-weight:700}.log .u{color:#dfe8ff}.log .s2{color:var(--ok)}.log .s4{color:var(--bad)}.log .s3{color:var(--saf)}
+.log .j{color:#9fb0d6;display:block;padding-left:16px;white-space:pre-wrap;word-break:break-word}
+.log .note{color:var(--saf)}.log .dim{color:var(--dim)}.log .bad{color:var(--bad)}.log .good{color:var(--ok)}
+.phone{display:none;margin:4px 0 8px 16px;max-width:260px;border:1px solid var(--line2);border-radius:12px;padding:8px 10px;background:#0a1222;font-family:var(--fa);direction:rtl;text-align:right;color:var(--fg)}
+.phone small{display:block;color:var(--dim);font:11px var(--mono);direction:ltr;text-align:left}
+/* sections */
+section{padding:92px 0;position:relative}
+.alt{background:var(--bg2);border-block:1px solid var(--line)}
+.eyebrow{font:700 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--saf)}
+html[data-lang=fa] .eyebrow{font-family:var(--fa);letter-spacing:0;font-size:14px}
+h2{font-size:clamp(28px,3.8vw,44px);letter-spacing:-.03em;line-height:1.12;margin:10px 0 14px;font-weight:780}
+html[data-lang=fa] h2{letter-spacing:0;line-height:1.45}
+.sub{color:var(--mut);max-width:720px;margin:0 0 40px;font-size:17px}
+.svc{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.s{border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:22px;position:relative;overflow:hidden}
+.s:before{content:"";position:absolute;inset:0 0 auto;height:3px;background:var(--c)}
+.s h3{margin:6px 0 2px;font-size:20px}.s .k{font:12px var(--mono);color:var(--dim)}
+.s .map{margin-top:14px;font:12px/1.7 var(--mono);direction:ltr;text-align:left}
+.s .map div{color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,107,.6)}
+.s .map b{display:block;color:var(--teal);font-weight:500}
+.s p{color:var(--mut);font-size:14px;margin:12px 0 0}
+.scn{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.sc2{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:16px 18px}
+.sc2 code{font-size:13.5px;color:var(--saf);font-weight:700}.sc2.t code{color:var(--rose)}
+.sc2 p{margin:6px 0 0;color:var(--mut);font-size:14px}
+.sc2 span{float:right;font:600 10.5px var(--mono);color:var(--dim);border:1px solid var(--line2);padding:1px 6px;border-radius:5px;text-transform:uppercase}
+html[dir=rtl] .sc2 span{float:left}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.f{border:1px solid var(--line);border-radius:18px;background:var(--panel);overflow:hidden;display:flex;flex-direction:column}
+.f .vis{padding:16px;background:#060a14;border-bottom:1px solid var(--line);font:12px/1.65 var(--mono);color:#b9c6e6;min-height:150px;direction:ltr;text-align:left;white-space:pre;overflow:hidden}
+.f .vis .a{color:var(--teal)}.f .vis .b{color:var(--saf)}.f .vis .r{color:var(--bad)}.f .vis .g{color:var(--ok)}.f .vis .d{color:var(--dim)}
+.f .tx{padding:20px 22px 24px}.f h3{margin:0 0 8px;font-size:19px}.f p{margin:0;color:var(--mut);font-size:15px}
+.shot{margin-top:46px;border-radius:16px;overflow:hidden;border:1px solid var(--line2);box-shadow:0 40px 80px -30px rgba(0,0,0,.9)}
+.shot img{display:block;width:100%;height:auto}
+.cap{text-align:center;color:var(--dim);font-size:13.5px;margin-top:12px}
+.tabs{display:flex;gap:6px;margin-bottom:-1px;position:relative;z-index:1;flex-wrap:wrap}
+.tabs button{all:unset;cursor:pointer;padding:9px 16px;border:1px solid var(--line);border-bottom:0;border-radius:10px 10px 0 0;font:600 13.5px var(--sans);color:var(--mut);background:var(--panel)}
+.tabs button[aria-selected=true]{color:var(--fg);background:#060a14;border-color:var(--line2)}
+pre{margin:0;background:#060a14;border:1px solid var(--line2);border-radius:0 14px 14px 14px;padding:20px;overflow:auto;font:13.5px/1.7 var(--mono);color:#d8e2fa;direction:ltr;text-align:left}
+html[dir=rtl] pre{border-radius:14px 0 14px 14px}
+pre .c{color:var(--dim)}pre .k{color:var(--saf)}pre .s{color:var(--teal)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+.pane[hidden]{display:none}
+.ck{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.ck li{padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--mut);font-size:15px}
+.ck li b{color:var(--fg);display:block;margin-bottom:2px}
+details{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:16px 20px;margin-bottom:12px}
+summary{cursor:pointer;font-weight:650;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";color:var(--saf);font:700 20px/1 var(--mono)}details[open] summary:after{content:"–"}
+details p{color:var(--mut);margin:10px 0 0}
+.note{margin-top:26px;padding:16px 18px;border-radius:12px;border:1px solid rgba(255,181,71,.35);background:rgba(255,181,71,.07);color:var(--mut);font-size:14.5px}
+.note b{color:var(--saf)}
+footer{border-top:1px solid var(--line);padding:34px 0 50px;color:var(--dim);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between}
+footer a{color:var(--mut)}
+@media (max-width:980px){.hgrid,.two{grid-template-columns:1fr}.svc{grid-template-columns:1fr 1fr}.trio{grid-template-columns:1fr}}
+.hgrid>*,.two>*,.svc>*,.trio>*{min-width:0}
+@media (max-width:640px){.top nav a.h{display:none}.top nav{gap:10px}.gh{display:none!important}.brand small{display:none}.svc{grid-template-columns:1fr}.hero{padding:56px 0 50px}section{padding:68px 0}.row label{width:100%}.log{height:300px}.run{margin-left:0}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.log p{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="#"><img src="favicon.svg" alt=""> MihanStack <small>v0.1.1</small></a>
+  <nav>
+    <a class="h" href="#services"><span lang="en">Services</span><span lang="fa">سرویس‌ها</span></a>
+    <a class="h" href="#scenarios"><span lang="en">Scenarios</span><span lang="fa">سناریوها</span></a>
+    <a class="h" href="#start"><span lang="en">Quick start</span><span lang="fa">شروع سریع</span></a>
+    <a class="h" href="#faq"><span lang="en">FAQ</span><span lang="fa">پرسش‌ها</span></a>
+    <a class="gh" href="https://github.com/mrzroot/mihanstack">GitHub</a>
+    <div class="lang" role="group" aria-label="Language"><button type="button" data-set-lang="en" aria-pressed="true">EN</button><button type="button" data-set-lang="fa" aria-pressed="false">فا</button></div>
+  </nav>
+</div></header>
+
+<main>
+<div class="hero"><div class="wrap hgrid">
+  <div>
+    <span class="tag"><b>v0.1.1</b><span lang="en">LocalStack for Iranian APIs · MIT</span><span lang="fa">LocalStack برای APIهای ایرانی · MIT</span></span>
+    <h1><span lang="en">The local development cloud for <span class="hl">Iranian services</span>.</span><span lang="fa">ابر توسعهٔ محلی برای <span class="hl">سرویس‌های ایرانی</span>.</span></h1>
+    <p class="lead"><span lang="en">Run <b>Zarinpal, Zibal, Kavenegar and SMS.ir</b> on localhost with their real request formats and error codes. Flip a switch to get a declined payment, a duplicate bank callback or a verify with the wrong amount, without a merchant ID, API credit or a flaky sandbox.</span><span lang="fa"><b>زرین‌پال، زیبال، کاوه‌نگار و SMS.ir</b> را با همان قالب درخواست‌ها و کدهای خطا روی لوکال‌هاست اجرا کنید. با یک کلید، پرداخت ناموفق، بازگشت تکراری بانک یا تأیید با مبلغ اشتباه بگیرید؛ بدون شناسهٔ پذیرنده، اعتبار پیامک یا سندباکس ناپایدار.</span></p>
+    <div class="cta">
+      <a class="btn p" href="#start"><span lang="en">Get started →</span><span lang="fa">شروع کنید ←</span></a>
+      <a class="btn" href="https://github.com/mrzroot/mihanstack"><span lang="en">View on GitHub</span><span lang="fa">مشاهده در گیت‌هاب</span></a>
+      <a class="btn" href="https://github.com/mrzroot/mihanstack/releases/latest"><span lang="en">Release notes</span><span lang="fa">یادداشت انتشار</span></a>
+    </div>
+    <div class="cmd"><span class="ps">$</span><code id="c-npx">npx github:mrzroot/mihanstack</code><button class="copy" type="button" data-copy="c-npx"><span lang="en">Copy</span><span lang="fa">کپی</span></button></div>
+    <div class="meta"><span lang="en">Node 18.17+</span><span lang="fa">Node 18.17 به بالا</span><span lang="en">Docker on :8585</span><span lang="fa">داکر روی :8585</span><span lang="en">Works offline</span><span lang="fa">بدون اینترنت</span><span lang="en">62 tests</span><span lang="fa">۶۲ آزمون</span></div>
+  </div>
+
+  <div class="console" aria-label="Interactive simulation of a MihanStack session">
+    <div class="cbar"><i></i><i></i><i></i><span>localhost:8585 · simulator</span><em id="sim-state">idle</em></div>
+    <div class="ctl">
+      <div class="row"><label>service</label>
+        <button class="chip" data-svc="zarinpal" aria-pressed="true">zarinpal</button><button class="chip" data-svc="zibal" aria-pressed="false">zibal</button><button class="chip" data-svc="kavenegar" aria-pressed="false">kavenegar</button>
+      </div>
+      <div class="row"><label>scenario</label><span id="scn" class="row"></span></div>
+      <div class="row"><button class="run" id="run" type="button">▶ Run flow</button></div>
+    </div>
+    <div class="log" id="log" aria-live="polite"><p class="dim"># Pick a service and a scenario, then press Run.</p><p class="dim"># This is a scripted, in-page replay of real MihanStack responses.</p></div>
+  </div>
+</div></div>
+
+<section id="services" class="alt"><div class="wrap">
+  <div class="eyebrow"><span lang="en">What's emulated</span><span lang="fa">چه چیزی شبیه‌سازی می‌شود</span></div>
+  <h2><span lang="en">Four services. One port. Swap a base URL.</span><span lang="fa">چهار سرویس، یک درگاه، فقط نشانی پایه را عوض کنید.</span></h2>
+  <p class="sub"><span lang="en">Point your SDK or HTTP client at MihanStack instead of the real host. Prefixed paths, unambiguous bare paths and the real Host header (via /etc/hosts or a proxy) are all routed to the right emulator.</span><span lang="fa">SDK یا کلاینت HTTP خود را به جای میزبان واقعی به میهن‌استک وصل کنید. مسیرهای پیشونددار، مسیرهای بدون ابهام و هدر Host واقعی (با /etc/hosts یا پراکسی) همه به شبیه‌ساز درست می‌رسند.</span></p>
+  <div class="svc">
+    <div class="s" style="--c:#ffb547"><span class="k">payment · v4</span><h3><span lang="en">Zarinpal</span><span lang="fa">زرین‌پال</span></h3><div class="map"><div>payment.zarinpal.com</div><b>localhost:8585/zarinpal</b></div><p><span lang="en">request, StartPay, verify and inquiry with the {data, errors} envelope and codes 100, 101, -9…-54.</span><span lang="fa">request، StartPay، verify و inquiry با پوشش {data, errors} و کدهای ۱۰۰، ۱۰۱ و ۹- تا ۵۴-.</span></p></div>
+    <div class="s" style="--c:#2ee6c5"><span class="k">payment</span><h3><span lang="en">Zibal</span><span lang="fa">زیبال</span></h3><div class="map"><div>gateway.zibal.ir</div><b>localhost:8585/zibal</b></div><p><span lang="en">request, start, verify and inquiry with result codes 100, 102, 103, 105, 201, 202… and a real-shaped callback.</span><span lang="fa">request، start، verify و inquiry با کدهای ۱۰۰، ۱۰۲، ۱۰۳، ۱۰۵، ۲۰۱، ۲۰۲ و بازگشتی با همان شکل واقعی.</span></p></div>
+    <div class="s" style="--c:#6aa7ff"><span class="k">sms</span><h3><span lang="en">Kavenegar</span><span lang="fa">کاوه‌نگار</span></h3><div class="map"><div>api.kavenegar.com</div><b>localhost:8585/kavenegar</b></div><p><span lang="en">send, verify/lookup with %token% templates, status and account info; HTTP status mirrors return.status.</span><span lang="fa">send، verify/lookup با قالب‌های %token%، وضعیت و اطلاعات حساب؛ کد HTTP همان return.status است.</span></p></div>
+    <div class="s" style="--c:#ff6b8b"><span class="k">sms · v1</span><h3>SMS.ir</h3><div class="map"><div>api.sms.ir</div><b>localhost:8585/smsir</b></div><p><span lang="en">bulk, likeToLike, verify, credit and lines behind an X-API-KEY header, with {status, message, data}.</span><span lang="fa">bulk، likeToLike، verify، اعتبار و خطوط با هدر X-API-KEY و پاسخ {status, message, data}.</span></p></div>
+  </div>
+  <figure class="shot"><img id="dash" src="dashboard-en.png" alt="MihanStack dashboard: services with scenario switches, live request log and SMS inbox" width="1440" height="900" loading="lazy"></figure>
+  <p class="cap"><span lang="en">The built-in dashboard at localhost:8585: scenario switches, live redacted request log, chaos, webhooks and the SMS inbox. Fully offline, English and Persian.</span><span lang="fa">داشبورد داخلی در localhost:8585: کلید سناریوها، لاگ زندهٔ درخواست‌ها با حذف اطلاعات حساس، آشوب، وب‌هوک و صندوق پیامک. کاملاً آفلاین، فارسی و انگلیسی.</span></p>
+</div></section>
+
+<section id="scenarios"><div class="wrap">
+  <div class="eyebrow"><span lang="en">Scenarios</span><span lang="fa">سناریوها</span></div>
+  <h2><span lang="en">Reproduce the bugs production will give you.</span><span lang="fa">باگ‌هایی را که محیط واقعی به شما می‌دهد، از قبل بسازید.</span></h2>
+  <p class="sub"><span lang="en">Set a scenario per service in mihanstack.yml, from the dashboard, with --scenario svc=name, through the admin API, or per request with the X-Mihan-Scenario header.</span><span lang="fa">سناریو را برای هر سرویس در mihanstack.yml، از داشبورد، با ‎--scenario svc=name‎، از API مدیریت یا برای هر درخواست با هدر X-Mihan-Scenario تعیین کنید.</span></p>
+  <div class="scn">
+    <div class="sc2"><span>biz</span><code>success</code><p><span lang="en">Normal flow; SMS lands in the inbox.</span><span lang="fa">روند عادی؛ پیامک در صندوق ذخیره می‌شود.</span></p></div>
+    <div class="sc2"><span>biz</span><code>failed</code><p><span lang="en">User cancels or bank declines (Status=NOK); SMS: insufficient credit.</span><span lang="fa">کاربر لغو می‌کند یا بانک رد می‌کند (Status=NOK)؛ پیامک: اعتبار ناکافی.</span></p></div>
+    <div class="sc2"><span>biz</span><code>duplicate_callback</code><p><span lang="en">Your callback is hit twice: redirect plus a server-side resend.</span><span lang="fa">آدرس بازگشت شما دو بار فراخوانی می‌شود: هدایت مرورگر و ارسال دوباره از سرور.</span></p></div>
+    <div class="sc2"><span>biz</span><code>wrong_amount</code><p><span lang="en">Zarinpal verify returns -50; Zibal returns a different amount.</span><span lang="fa">تأیید زرین‌پال ۵۰- برمی‌گرداند؛ زیبال مبلغ متفاوتی می‌دهد.</span></p></div>
+    <div class="sc2"><span>biz</span><code>invalid_signature</code><p><span lang="en">Invalid merchant/terminal (-10 / 102) or API key (403 / 10).</span><span lang="fa">پذیرنده یا ترمینال نامعتبر (۱۰- / ۱۰۲) یا کلید API نامعتبر (۴۰۳ / ۱۰).</span></p></div>
+    <div class="sc2"><span>biz</span><code>merchant_disabled</code><p><span lang="en">Terminal inactive (-11 / 103) or account disabled (401 / 13).</span><span lang="fa">ترمینال غیرفعال (۱۱- / ۱۰۳) یا حساب غیرفعال (۴۰۱ / ۱۳).</span></p></div>
+    <div class="sc2 t"><span>net</span><code>timeout</code><p><span lang="en">Connection held for timeoutMs, then dropped.</span><span lang="fa">اتصال به اندازهٔ timeoutMs نگه داشته و بعد قطع می‌شود.</span></p></div>
+    <div class="sc2 t"><span>net</span><code>network_error</code><p><span lang="en">TCP connection reset.</span><span lang="fa">اتصال TCP بازنشانی می‌شود.</span></p></div>
+    <div class="sc2 t"><span>net</span><code>server_error</code><p><span lang="en">HTTP 500 with an HTML error page.</span><span lang="fa">HTTP 500 با صفحهٔ خطای HTML.</span></p></div>
+    <div class="sc2 t"><span>net</span><code>latency</code><p><span lang="en">Adds slowMs (3 s by default) to every response.</span><span lang="fa">به هر پاسخ slowMs (پیش‌فرض ۳ ثانیه) اضافه می‌کند.</span></p></div>
+  </div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <div class="eyebrow"><span lang="en">Beyond mocks</span><span lang="fa">فراتر از ماک</span></div>
+  <h2><span lang="en">Chaos, webhooks, record &amp; replay.</span><span lang="fa">آشوب، وب‌هوک، ضبط و پخش.</span></h2>
+  <p class="sub"><span lang="en">The parts that usually only break in production, made reproducible on your laptop and in CI.</span><span lang="fa">بخش‌هایی که معمولاً فقط در محیط واقعی خراب می‌شوند، حالا روی لپ‌تاپ و در CI قابل‌تکرارند.</span></p>
+  <div class="trio">
+    <div class="f"><div class="vis"><span class="d">$</span> mihanstack chaos payment --rate 0.3 --seed 42
+<span class="g">200</span> zarinpal request.json     <span class="d">41ms</span>
+<span class="r">500</span> zibal    /v1/verify      <span class="b">chaos</span>
+<span class="g">200</span> zarinpal verify.json      <span class="d">38ms</span>
+<span class="r">RST</span> zarinpal request.json    <span class="b">chaos</span>
+<span class="g">200</span> zibal    /v1/request     <span class="d">52ms</span></div>
+      <div class="tx"><h3><span lang="en">Chaos mode</span><span lang="fa">حالت آشوب</span></h3><p><span lang="en">Random timeouts, resets, 500s and latency for all, payment, sms, network or one service, at a set rate and with a seed so failures repeat exactly.</span><span lang="fa">مهلت تمام‌شده، قطع اتصال، خطای ۵۰۰ و تأخیر تصادفی برای همه، پرداخت، پیامک، شبکه یا یک سرویس، با نرخ مشخص و بذر ثابت تا خطاها دقیقاً تکرار شوند.</span></p></div></div>
+    <div class="f"><div class="vis"><span class="d">$</span> mihanstack webhook zarinpal \
+    --url http://localhost:3000/verify \
+    --status ok --repeat 2
+<span class="d">GET /verify?Authority=A0f3…&amp;Status=OK</span>
+<span class="a">#1</span>  <span class="g">200</span>  38 ms  Thanks for your payment
+<span class="a">#2</span>  <span class="b">409</span>   4 ms  already processed</div>
+      <div class="tx"><h3><span lang="en">Webhook playground</span><span lang="fa">زمین بازی وب‌هوک</span></h3><p><span lang="en">Fire a realistic provider callback at your app, repeat it, and see each status and timing. Proof that your duplicate-payment guard works.</span><span lang="fa">یک بازگشت واقعی‌نما به برنامه‌تان بفرستید، تکرارش کنید و کد وضعیت و زمان هرکدام را ببینید؛ اثبات اینکه محافظ پرداخت تکراری کار می‌کند.</span></p></div></div>
+    <div class="f"><div class="vis"><span class="d">$</span> mihanstack record \
+    --upstream zarinpal=https://sandbox… 
+<span class="a">●</span> rec  POST request.json  <span class="d">merchant_id → ***</span>
+<span class="a">●</span> rec  GET  StartPay      <span class="d">card → 5022********</span>
+<span class="a">●</span> rec  SMS  kavenegar     <span class="d">0912***4567</span>
+<span class="d">$</span> mihanstack replay fixtures --strict
+<span class="g">✓</span> 3 fixtures · offline</div>
+      <div class="tx"><h3><span lang="en">Record &amp; replay</span><span lang="fa">ضبط و پخش</span></h3><p><span lang="en">Record real sandbox traffic once with merchant IDs, API keys, card numbers and mobiles redacted, then replay it offline; --strict 404s anything unrecorded.</span><span lang="fa">ترافیک سندباکس واقعی را یک بار با حذف شناسهٔ پذیرنده، کلید API، شمارهٔ کارت و موبایل ضبط کنید و بعد آفلاین پخش کنید؛ ‎--strict‎ برای هر چیز ضبط‌نشده ۴۰۴ می‌دهد.</span></p></div></div>
+  </div>
+</div></section>
+
+<section id="start"><div class="wrap two">
+  <div>
+    <div class="eyebrow"><span lang="en">Quick start</span><span lang="fa">شروع سریع</span></div>
+    <h2><span lang="en">Up in one command.</span><span lang="fa">با یک دستور بالا بیاورید.</span></h2>
+    <p class="sub"><span lang="en">Not on npm or Docker Hub yet: npx builds it straight from GitHub (npm 10+), or build the image from the repo.</span><span lang="fa">هنوز در npm یا Docker Hub نیست: npx آن را مستقیم از گیت‌هاب می‌سازد (npm 10 به بالا)، یا ایمیج را از مخزن بسازید.</span></p>
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-tab="t1">npx</button><button role="tab" aria-selected="false" data-tab="t2">Docker</button><button role="tab" aria-selected="false" data-tab="t3">GitHub Action</button><button role="tab" aria-selected="false" data-tab="t4">Plugin</button>
+    </div>
+<pre class="pane" id="t1"><span class="c"># start on http://localhost:8585 (dashboard + all emulators)</span>
+npx github:mrzroot/mihanstack
+
+<span class="c"># 1. create a Zarinpal payment</span>
+curl -s localhost:8585/zarinpal/pg/v4/payment/request.json \
+  -H 'content-type: application/json' \
+  -d '{"merchant_id":"1344b5d4-0048-11e8-94db-005056a205be",
+       "amount":10000,"callback_url":"http://localhost:3000/verify",
+       "description":"order 42"}'
+<span class="c"># → {"data":{"code":100,"authority":"A0f3…"},"errors":[]}</span>
+
+<span class="c"># 2. open the fake bank page and pay</span>
+open http://localhost:8585/zarinpal/pg/StartPay/A0f3…
+
+<span class="c"># read an OTP back in an e2e test</span>
+curl -s "localhost:8585/_mihan/sms?receptor=09121234567&amp;last=1"</pre>
+<pre class="pane" id="t2" hidden><span class="c"># build from the repository (not on Docker Hub yet)</span>
+docker build -t mihanstack https://github.com/mrzroot/mihanstack.git
+docker run --rm -p 8585:8585 mihanstack
+
+<span class="c"># optional: mount a config at /app/mihanstack.yml</span>
+docker run --rm -p 8585:8585 -v "$PWD/mihanstack.yml:/app/mihanstack.yml" mihanstack
+
+<span class="c"># or pass flags (keep --host 0.0.0.0 so the port is reachable)</span>
+docker run --rm -p 8585:8585 mihanstack \
+  start --host 0.0.0.0 --port 8585 --scenario zarinpal=duplicate_callback</pre>
+<pre class="pane" id="t3" hidden><span class="c"># .github/workflows/test.yml</span>
+- <span class="k">uses</span>: mrzroot/mihanstack@v0.1.1
+  <span class="k">id</span>: mihan
+  <span class="k">with</span>:
+    <span class="k">scenarios</span>: |
+      zarinpal=success
+      kavenegar=failed
+- <span class="k">run</span>: npm test
+  <span class="k">env</span>:
+    <span class="k">ZARINPAL_BASE_URL</span>: <span class="s">${{ steps.mihan.outputs.url }}/zarinpal</span>
+<span class="c"># MIHANSTACK_URL is exported to later steps too</span></pre>
+<pre class="pane" id="t4" hidden><span class="c">// plugins/idpay.mjs → plugins: [./plugins/idpay.mjs]</span>
+<span class="k">import</span> { defineProvider } <span class="k">from</span> <span class="s">"mihanstack"</span>;
+
+<span class="k">export default</span> defineProvider({
+  name: <span class="s">"idpay"</span>,
+  category: <span class="s">"payment"</span>,
+  scenarios: [<span class="s">"success"</span>, <span class="s">"failed"</span>],
+  endpoints: [{
+    method: <span class="s">"POST"</span>, path: <span class="s">"/v1.1/payment"</span>,
+    handler: (ctx) =&gt; ctx.scenario === <span class="s">"failed"</span>
+      ? { status: 406, body: { error_code: 32 } }
+      : { status: 201, body: { id: ctx.randomId(12) } },
+  }],
+});
+<span class="c">// timeouts, resets, 500s and latency come for free</span></pre>
+  </div>
+  <div>
+    <div class="eyebrow"><span lang="en">Why teams use it</span><span lang="fa">چرا تیم‌ها از آن استفاده می‌کنند</span></div>
+    <h2><span lang="en">Test the unhappy paths.</span><span lang="fa">مسیرهای ناخوشایند را بیازمایید.</span></h2>
+    <ul class="ck">
+      <li><b><span lang="en">No credentials in CI</span><span lang="fa">بدون اطلاعات محرمانه در CI</span></b><span lang="en">Any merchant ID and API key work by default; restrict them in config when you want to test auth errors.</span><span lang="fa">هر شناسهٔ پذیرنده و کلید API به‌طور پیش‌فرض پذیرفته می‌شود؛ برای آزمودن خطای احراز هویت، در پیکربندی محدودشان کنید.</span></li>
+      <li><b><span lang="en">Admin API for tests</span><span lang="fa">API مدیریت برای آزمون‌ها</span></b><span lang="en">/_mihan/services, /_mihan/sms, /_mihan/transactions, /_mihan/chaos and /_mihan/reset make every scenario scriptable.</span><span lang="fa">مسیرهای ‎/_mihan/services‎، ‎/_mihan/sms‎، ‎/_mihan/transactions‎، ‎/_mihan/chaos‎ و ‎/_mihan/reset‎ همهٔ سناریوها را قابل‌اسکریپت می‌کنند.</span></li>
+      <li><b><span lang="en">Persian-first payment pages</span><span lang="fa">صفحهٔ پرداخت فارسی</span></b><span lang="en">The fake bank pages are RTL and look like the real flow, with pay and cancel buttons; autoRedirect skips the click in CI.</span><span lang="fa">صفحه‌های بانک ساختگی راست‌به‌چپ و شبیه روند واقعی‌اند، با دکمهٔ پرداخت و انصراف؛ autoRedirect در CI کلیک را حذف می‌کند.</span></li>
+      <li><b><span lang="en">Extensible</span><span lang="fa">قابل‌گسترش</span></b><span lang="en">Add IDPay, NextPay or your own SMS gateway with defineProvider: handlers get ctx.req, ctx.scenario, persistent ctx.state, ctx.sms() and ctx.fireCallback().</span><span lang="fa">با defineProvider درگاه IDPay، NextPay یا سرویس پیامک خودتان را اضافه کنید: handlerها به ctx.req، ctx.scenario، ctx.state ماندگار، ctx.sms()‎ و ctx.fireCallback()‎ دسترسی دارند.</span></li>
+    </ul>
+  </div>
+</div></section>
+
+<section id="faq" class="alt"><div class="wrap">
+  <div class="eyebrow"><span lang="en">FAQ</span><span lang="fa">پرسش‌های پرتکرار</span></div>
+  <h2><span lang="en">Questions</span><span lang="fa">پرسش‌ها</span></h2>
+  <details><summary><span lang="en">Is this affiliated with Zarinpal, Zibal, Kavenegar or SMS.ir?</span><span lang="fa">آیا این پروژه وابسته به زرین‌پال، زیبال، کاوه‌نگار یا SMS.ir است؟</span></summary><p><span lang="en">No. MihanStack is an independent open-source emulator. Formats follow the providers' public documentation; rarely documented error codes are marked approximate in the source.</span><span lang="fa">خیر. میهن‌استک یک شبیه‌ساز متن‌باز مستقل است. قالب‌ها از مستندات عمومی سرویس‌ها پیروی می‌کنند و کدهای خطای کم‌مستند در سورس «تقریبی» علامت خورده‌اند.</span></p></details>
+  <details><summary><span lang="en">How close is it to the real APIs?</span><span lang="fa">چقدر به APIهای واقعی نزدیک است؟</span></summary><p><span lang="en">Endpoints, envelopes, status codes and callback parameters match the public docs, but it hasn't been compared byte-for-byte with live production responses. Use record mode against a real sandbox to capture exact responses, and open an issue if you find a mismatch.</span><span lang="fa">مسیرها، ساختار پاسخ، کدهای وضعیت و پارامترهای بازگشت با مستندات عمومی یکسان‌اند، اما بایت‌به‌بایت با پاسخ‌های محیط واقعی مقایسه نشده‌اند. با حالت ضبط روی سندباکس واقعی پاسخ دقیق را بگیرید و اگر تفاوتی دیدید، issue باز کنید.</span></p></details>
+  <details><summary><span lang="en">Why isn't it on npm or Docker Hub?</span><span lang="fa">چرا در npm یا Docker Hub نیست؟</span></summary><p><span lang="en">Not yet published. npx github:mrzroot/mihanstack builds it on install (use npm 10 or newer; older npm versions have a bug with git dependencies), and the Dockerfile builds a small node:20-alpine image.</span><span lang="fa">هنوز منتشر نشده است. دستور npx github:mrzroot/mihanstack هنگام نصب آن را می‌سازد (npm 10 یا جدیدتر؛ نسخه‌های قدیمی‌تر با وابستگی‌های گیت مشکل دارند) و Dockerfile یک ایمیج کوچک node:20-alpine می‌سازد.</span></p></details>
+  <details><summary><span lang="en">Can I use it in production?</span><span lang="fa">می‌توانم در محیط واقعی استفاده کنم؟</span></summary><p><span lang="en">No: it's a development and testing tool. It never moves real money or sends real SMS; payments are always simulated and messages go to a local inbox.</span><span lang="fa">خیر؛ ابزار توسعه و آزمون است. هیچ پول واقعی جابه‌جا نمی‌کند و پیامک واقعی نمی‌فرستد؛ پرداخت‌ها شبیه‌سازی می‌شوند و پیام‌ها به صندوق محلی می‌روند.</span></p></details>
+  <details><summary><span lang="en">Does this page load in Iran?</span><span lang="fa">این صفحه در ایران باز می‌شود؟</span></summary><p><span lang="en">It makes no third-party requests: no CDN, no web-font service, no analytics. The Persian font is self-hosted on GitHub Pages.</span><span lang="fa">هیچ درخواستی به سرویس دیگری نمی‌فرستد: نه CDN، نه سرویس فونت، نه آمارگیر. فونت فارسی روی همین GitHub Pages است.</span></p></details>
+  <div class="note"><span lang="en"><b>Heads-up.</b> MihanStack is for local development and CI only. It is not affiliated with or endorsed by any payment or SMS provider.</span><span lang="fa"><b>توجه.</b> میهن‌استک فقط برای توسعهٔ محلی و CI است و وابسته به هیچ درگاه پرداخت یا سرویس پیامکی نیست و تأییدی از آن‌ها ندارد.</span></div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <span>MIT © 2026 <a href="https://mrzroot.github.io/">Mohammadreza Zare</a> · <span lang="en">Built in Mashhad</span><span lang="fa">ساخته‌شده در مشهد</span></span>
+  <span><a href="https://github.com/mrzroot/mihanstack">GitHub</a> · <a href="https://github.com/mrzroot/mihanstack/blob/main/CHANGELOG.md">Changelog</a> · <a href="https://mrzroot.github.io/projects/"><span lang="en">More projects</span><span lang="fa">پروژه‌های دیگر</span></a></span>
+</div></footer>
+
+<script>
+(function(){
+  var R=document.documentElement,$=function(s){return document.querySelector(s)},$$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))};
+  var TITLES={en:'MihanStack · The local development cloud for Iranian services',fa:'میهن‌استک · ابر توسعهٔ محلی برای سرویس‌های ایرانی'};
+  function setLang(l,save){R.setAttribute('data-lang',l);R.lang=l;R.dir=l==='fa'?'rtl':'ltr';document.title=TITLES[l];
+    $$('[data-set-lang]').forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-set-lang')===l))});
+    var d=$('#dash');if(d)d.src=l==='fa'?'dashboard-fa.png':'dashboard-en.png';
+    if(save)try{localStorage.setItem('mrz-lang',l)}catch(e){}}
+  setLang(R.getAttribute('data-lang')||'en');
+  $$('[data-set-lang]').forEach(function(b){b.addEventListener('click',function(){setLang(b.getAttribute('data-set-lang'),true)})});
+  $$('[data-copy]').forEach(function(b){b.addEventListener('click',function(){var t=document.getElementById(b.getAttribute('data-copy')).textContent;
+    if(navigator.clipboard)navigator.clipboard.writeText(t).then(function(){b.classList.add('ok');setTimeout(function(){b.classList.remove('ok')},1300)})})});
+  $$('[data-tab]').forEach(function(b){b.addEventListener('click',function(){$$('[data-tab]').forEach(function(x){x.setAttribute('aria-selected',String(x===b));document.getElementById(x.getAttribute('data-tab')).hidden=x!==b})})});
+
+  /* ---- simulator: scripted replay of real MihanStack responses ---- */
+  var SC={zarinpal:['success','failed','duplicate_callback','wrong_amount','invalid_signature','timeout'],
+          zibal:['success','failed','wrong_amount','merchant_disabled','server_error'],
+          kavenegar:['success','failed','invalid_signature','latency']};
+  var svc='zarinpal',scn='success',busy=false,log=$('#log');
+  function chips(){var box=$('#scn');box.innerHTML='';SC[svc].forEach(function(s){var b=document.createElement('button');b.className='chip sc';b.type='button';b.textContent=s;
+    b.setAttribute('aria-pressed',String(s===scn));b.onclick=function(){scn=s;chips()};box.appendChild(b)})}
+  $$('[data-svc]').forEach(function(b){b.addEventListener('click',function(){svc=b.getAttribute('data-svc');if(SC[svc].indexOf(scn)<0)scn='success';
+    $$('[data-svc]').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});chips()})});
+  chips();
+  function esc(s){return String(s).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
+  function req(m,u){return '<span class="m">'+m+'</span> <span class="u">'+esc(u)+'</span>'}
+  function res(code,ms,j){var c=code>=500||code===0?'s4':code>=400?'s4':code>=300?'s3':'s2';return '<span class="'+c+'">← '+(code||'RST')+'</span> <span class="dim">'+ms+'ms</span>'+(j?'<span class="j">'+esc(j)+'</span>':'')}
+  var A='A'+'0'.repeat(25)+Math.random().toString(36).slice(2,12).padEnd(10,'7');
+  function flow(){var L=[],au=A;
+    if(svc==='zarinpal'){
+      var rq=req('POST','/zarinpal/pg/v4/payment/request.json')+'  <span class="dim">amount=10000</span>';
+      if(scn==='timeout'){L.push(rq,'<span class="note">… connection held for timeoutMs (scenario: timeout)</span>','<span class="bad">✖ socket dropped · your client must retry or fail gracefully</span>');return L}
+      L.push(rq,res(100>0?200:0,42,'{"data":{"code":100,"message":"Success","authority":"'+au+'","fee_type":"Merchant","fee":100},"errors":[]}'));
+      L.push(req('GET','/zarinpal/pg/StartPay/'+au.slice(0,8)+'…')+'  <span class="dim">→ fake bank page (fa, rtl)</span>');
+      var ok=scn!=='failed';
+      L.push(res(302,9)+'  <span class="u">→ http://localhost:3000/verify?Authority=…&amp;Status='+(ok?'OK':'NOK')+'</span>');
+      if(scn==='duplicate_callback')L.push('<span class="note">↻ server-side resend: your callback is hit a 2nd time</span>');
+      var vr=req('POST','/zarinpal/pg/v4/payment/verify.json')+'  <span class="dim">amount=10000</span>';
+      if(scn==='invalid_signature')L.push(vr,res(400,31,'{"data":[],"errors":{"code":-10,"message":"Terminal is not valid, please check merchant_id or ip address."}}'));
+      else if(scn==='wrong_amount')L.push(vr,res(400,33,'{"data":[],"errors":{"code":-50,"message":"Session is not valid, amounts values is not the same."}}'));
+      else if(scn==='failed')L.push(vr,res(400,30,'{"data":[],"errors":{"code":-51,"message":"Session is not valid, session is not active paid try."}}'));
+      else{L.push(vr,res(200,36,'{"data":{"code":100,"message":"Paid","ref_id":201834521,"card_pan":"502229******5995"},"errors":[]}'));
+        if(scn==='duplicate_callback')L.push(vr+' <span class="dim">(2nd)</span>',res(200,5,'{"data":{"code":101,"message":"Verified","ref_id":201834521},"errors":[]}'),'<span class="good">✓ code 101 = already verified · ship the order once</span>');}
+    }else if(svc==='zibal'){
+      if(scn==='server_error'){L.push(req('POST','/zibal/v1/request'),res(500,12,'<html>500 Internal Server Error</html>'),'<span class="bad">✖ scenario server_error · does your app show a friendly retry?</span>');return L}
+      if(scn==='merchant_disabled'){L.push(req('POST','/zibal/v1/request'),res(200,28,'{"result":103,"message":"merchant غیرفعال"}'),'<span class="note">result 103 · terminal inactive</span>');return L}
+      L.push(req('POST','/zibal/v1/request')+'  <span class="dim">merchant=zibal amount=20000</span>',res(200,40,'{"trackId":3714589921,"result":100,"message":"success"}'));
+      L.push(req('GET','/zibal/start/3714589921')+'  <span class="dim">→ fake bank page</span>');
+      var ok2=scn!=='failed';
+      L.push(res(302,8)+'  <span class="u">→ /callback?success='+(ok2?1:0)+'&amp;trackId=3714589921&amp;status='+(ok2?2:3)+'</span>');
+      L.push(req('POST','/zibal/v1/verify'));
+      if(scn==='failed')L.push(res(200,30,'{"result":202,"message":"سفارش پرداخت نشده یا ناموفق بوده است."}'),'<span class="note">result 202 · order not paid or unsuccessful</span>');
+      else if(scn==='wrong_amount')L.push(res(200,31,'{"result":100,"amount":10000,"refNumber":124560,"status":1}'),'<span class="bad">⚠ amount 10000 ≠ 20000 · reject the order!</span>');
+      else L.push(res(200,29,'{"result":100,"amount":20000,"refNumber":124560,"status":1,"cardNumber":"62741****44"}'));
+    }else{
+      var u='/kavenegar/v1/{API-KEY}/verify/lookup.json?receptor=09121234567&token=4521&template=verify';
+      L.push(req('GET',u));
+      if(scn==='latency')L.push('<span class="note">… +3000ms (scenario: latency)</span>');
+      if(scn==='failed'){L.push(res(418,26,'{"return":{"status":418,"message":"اعتبار حساب شما کافی نیست"},"entries":null}'));return L}
+      if(scn==='invalid_signature'){L.push(res(403,22,'{"return":{"status":403,"message":"کد شناسائی API-Key معتبر نمی‌باشد"},"entries":null}'));return L}
+      L.push(res(200,scn==='latency'?3021:24,'{"return":{"status":200,"message":"تایید شد"},"entries":[{"messageid":8792343,"receptor":"09121234567","status":1}]}'));
+      L.push('PHONE',req('GET','/_mihan/sms?receptor=09121234567&last=1'),res(200,3,'{"token":"4521","text":"کد تایید شما: 4521"}'),'<span class="good">✓ your e2e test reads the OTP back</span>');
+    }
+    if(scn==='success')L.push('<span class="good">✓ happy path complete</span>');
+    return L}
+  $('#run').addEventListener('click',function(){if(busy)return;busy=true;this.disabled=true;$('#sim-state').textContent=svc+' · '+scn;log.innerHTML='';
+    var lines=flow(),i=0,btn=this;
+    (function next(){if(i>=lines.length){busy=false;btn.disabled=false;return}
+      var l=lines[i++],p;
+      if(l==='PHONE'){p=document.createElement('div');p.className='phone';p.style.display='block';p.innerHTML='<small>SMS → 0912 123 4567</small>کد تایید شما: 4521';}
+      else{p=document.createElement('p');p.innerHTML=l}
+      log.appendChild(p);log.scrollTop=log.scrollHeight;setTimeout(next,l.indexOf('note')>0?650:340)})()});
+  if('IntersectionObserver' in window){var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){io.disconnect();setTimeout(function(){$('#run').click()},500)}});io.observe(log)}
+})();
+</script>
+</body>
+</html>
