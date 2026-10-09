@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 📖 Website and docs
+    url: https://mrzroot.github.io/mihanstack/
+    about: Overview, quick start and examples.
+  - name: 🔒 Report a security vulnerability
+    url: https://github.com/mrzroot/mihanstack/security/advisories/new
+    about: Please report security issues privately.

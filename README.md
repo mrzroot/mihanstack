@@ -10,12 +10,22 @@ payments and SMS without real money, real API keys or an internet connection.
 [![CI](https://github.com/mrzroot/mihanstack/actions/workflows/ci.yml/badge.svg)](https://github.com/mrzroot/mihanstack/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 ![Node](https://img.shields.io/badge/node-%E2%89%A518.17-339933)
+[![Release](https://img.shields.io/github/v/release/mrzroot/mihanstack?sort=semver)](https://github.com/mrzroot/mihanstack/releases)
+[![Stars](https://img.shields.io/github/stars/mrzroot/mihanstack?style=flat&logo=github)](https://github.com/mrzroot/mihanstack/stargazers)
 
-[English](#english) · [فارسی](#فارسی)
+[**Website**](https://mrzroot.github.io/mihanstack/) · [English](#english) · [فارسی](#فارسی) · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md)
 
 <img src="docs/dashboard-en.png" alt="MihanStack dashboard" width="860">
 
 </div>
+
+### ⚡ Quickstart
+
+```bash
+npx github:mrzroot/mihanstack     # emulator + dashboard on http://localhost:8585
+```
+
+Then point your app at `http://localhost:8585/zarinpal` instead of `https://payment.zarinpal.com` (Zibal, Kavenegar and SMS.ir work the same way, [table below](#quick-start)).
 
 ---
 

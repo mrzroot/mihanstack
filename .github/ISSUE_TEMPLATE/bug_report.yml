@@ -1,0 +1,51 @@
+name: 🐛 Bug report
+description: Something crashes or behaves incorrectly.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for reporting! English or Persian are both fine. / گزارش به فارسی هم پذیرفته است.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Zarinpal
+        - Zibal
+        - Kavenegar
+        - SMS.ir
+        - Dashboard
+        - Scenarios / chaos
+        - Webhooks
+        - Record / replay
+        - Plugins
+        - CLI / Docker / GitHub Action
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+      description: Include the exact command and the full output.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: "1. ...\n2. ...\n3. ..."
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      placeholder: "`npx github:mrzroot/mihanstack --version` or the dashboard footer"
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      placeholder: "Node version and OS (e.g. Node 20, macOS 15)"
