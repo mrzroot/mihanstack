@@ -2,11 +2,13 @@
 <html lang="en" data-lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
+<script>/*mrz-theme*/(function(){var d=document.documentElement,m='system';try{m=localStorage.getItem('mrz-theme')||'system'}catch(e){}var q=window.matchMedia?matchMedia('(prefers-color-scheme: dark)'):null;var t=m==='light'||m==='dark'?m:(q&&q.matches?'dark':'light');d.setAttribute('data-theme',t);d.style.colorScheme=t})()</script>
+<meta name="theme-color" content="#f7f5ef">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MihanStack · The local development cloud for Iranian services</title>
 <meta name="description" content="Emulate Zarinpal, Zibal, Kavenegar and SMS.ir on localhost: real request formats and error codes, failure scenarios, chaos mode, webhook playground, record/replay with redaction, plugins and an RTL-aware dashboard. npx or Docker, plus a GitHub Action.">
-<meta name="theme-color" content="#070b14">
-<meta name="color-scheme" content="dark">
+
+<meta name="color-scheme" content="light dark">
 <meta property="og:title" content="MihanStack · میهن‌استک">
 <meta property="og:description" content="The local development cloud for Iranian services: Zarinpal, Zibal, Kavenegar and SMS.ir on localhost.">
 <meta property="og:type" content="website">
@@ -144,6 +146,48 @@ footer a{color:var(--mut)}
 @media (max-width:640px){.top nav a.h{display:none}.top nav{gap:10px}.gh{display:none!important}.brand small{display:none}.svc{grid-template-columns:1fr}.hero{padding:56px 0 50px}section{padding:68px 0}.row label{width:100%}.log{height:300px}.run{margin-left:0}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.log p{opacity:1;transform:none}}
 </style>
+<style id="mrz-theme-css">
+/* mrz theme toggle */
+.mrz-tt{all:unset;box-sizing:border-box;cursor:pointer;display:inline-grid;place-items:center;flex:none;width:34px;height:34px;border-radius:999px;color:inherit;border:1.5px solid currentColor;transition:transform .2s,background-color .2s}
+.mrz-tt:hover{transform:rotate(-12deg)}.mrz-tt:focus-visible{outline:2px solid #1fb5ad;outline-offset:3px}
+.mrz-tt svg{width:17px;height:17px;display:block}
+html[data-theme=dark] .mrz-tt .i-moon,html:not([data-theme=dark]) .mrz-tt .i-sun{display:none}
+/* MihanStack · Persian turquoise + amber gold */
+html[data-theme=dark]{--bg:#070b1a;--bg2:#0b1124;--panel:#0e1428;--panel2:#121a33;--line:#1c2645;--line2:#2a3560;--fg:#eceff7;--mut:#a3acc8;--dim:#8089a8;
+--teal:#3fd0c9;--saf:#e8b04b;--rose:#ff8aa0;--blue:#8db8ff;--ok:#4fdc98;--bad:#ff8080;--teal-fill:#3fd0c9;--saf-fill:#e8b04b}
+html[data-theme=light]{--bg:#f7f5ef;--bg2:#efeadc;--panel:#fffdf8;--panel2:#f4f0e5;--line:#e3ddcc;--line2:#d3cab3;--fg:#0b1230;--mut:#3a4363;--dim:#5b6383;
+--teal:#0a7671;--saf:#8a5c0c;--rose:#b1264a;--blue:#1f56b8;--ok:#0b7a4f;--bad:#b42318;--teal-fill:#1fb5ad;--saf-fill:#e8b04b;color-scheme:light}
+html[data-theme] .lang button[aria-pressed=true]{background:var(--saf-fill);color:#1a1200}
+html[data-theme] .tag b{background:var(--teal-fill);color:#03201e}
+html[data-theme] .btn.p{background:var(--saf-fill);border-color:var(--saf-fill);color:#1a1200}
+html[data-theme] .btn.p:hover{background:#f0be5e;border-color:#f0be5e}
+html[data-theme] .chip[aria-pressed=true]{background:var(--teal-fill);border-color:var(--teal-fill);color:#03201e}
+html[data-theme] .chip.sc[aria-pressed=true]{background:var(--saf-fill);border-color:var(--saf-fill);color:#1a1200}
+html[data-theme] .run{background:var(--saf-fill);color:#1a1200}
+html[data-theme=dark] h1 .hl{background:linear-gradient(90deg,#e8b04b,#f3cf86 40%,#3fd0c9);-webkit-background-clip:text;background-clip:text}
+html[data-theme=dark] .hero:before{background:radial-gradient(700px 380px at 12% 8%,rgba(63,208,201,.15),transparent 70%),radial-gradient(640px 360px at 92% 18%,rgba(232,176,75,.13),transparent 70%)}
+html[data-theme=dark] .top{background:rgba(7,11,26,.8)}
+html[data-theme=dark] .cmd,html[data-theme=dark] .f .vis,html[data-theme=dark] .tabs button[aria-selected=true],html[data-theme=dark] pre{background:#060a17}
+html[data-theme=dark] .phone{background:#0b1124}
+/* light: no dark slabs, ivory panels with lapis ink */
+html[data-theme=light] .top{background:rgba(247,245,239,.86)}
+html[data-theme=light] .hero:before{background:radial-gradient(700px 380px at 12% 8%,rgba(31,181,173,.16),transparent 70%),radial-gradient(640px 360px at 92% 18%,rgba(232,176,75,.16),transparent 70%)}
+html[data-theme=light] .tag{background:rgba(255,253,248,.85)}
+html[data-theme=light] h1 .hl{background:linear-gradient(90deg,#8a5c0c,#9a6a12 40%,#0a7671);-webkit-background-clip:text;background-clip:text}
+html[data-theme=light] .btn.p{box-shadow:0 10px 30px -12px rgba(217,154,43,.55)}
+html[data-theme=light] .cmd{background:#fffdf8}
+html[data-theme=light] .cmd code{color:#0b1230}
+html[data-theme=light] .console{box-shadow:0 40px 80px -36px rgba(11,18,48,.28),0 0 0 1px rgba(11,18,48,.06)}
+html[data-theme=light] .cbar i{background:#d3cab3}
+html[data-theme=light] .log{color:#3a4363}html[data-theme=light] .log .u{color:#0b1230}html[data-theme=light] .log .j{color:#5b6383}
+html[data-theme=light] .phone{background:#fffdf8}
+html[data-theme=light] .s .map div{text-decoration-color:rgba(180,35,24,.55)}
+html[data-theme=light] .f .vis{background:#f4f0e5;color:#3a4363}
+html[data-theme=light] .shot{box-shadow:0 40px 80px -36px rgba(11,18,48,.3)}
+html[data-theme=light] .tabs button[aria-selected=true]{background:#fffdf8}
+html[data-theme=light] pre{background:#fffdf8;color:#0b1230}
+html[data-theme=light] .note{border-color:rgba(138,92,12,.35);background:rgba(232,176,75,.1)}
+</style>
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -154,7 +198,7 @@ footer a{color:var(--mut)}
     <a class="h" href="#start"><span lang="en">Quick start</span><span lang="fa">شروع سریع</span></a>
     <a class="h" href="#faq"><span lang="en">FAQ</span><span lang="fa">پرسش‌ها</span></a>
     <a class="gh" href="https://github.com/mrzroot/mihanstack">GitHub</a>
-    <div class="lang" role="group" aria-label="Language"><button type="button" data-set-lang="en" aria-pressed="true">EN</button><button type="button" data-set-lang="fa" aria-pressed="false">فا</button></div>
+    <button type="button" class="mrz-tt" data-theme-toggle aria-label="Switch to dark mode" title="Switch to dark mode"><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></g></svg><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg></button><div class="lang" role="group" aria-label="Language"><button type="button" data-set-lang="en" aria-pressed="true">EN</button><button type="button" data-set-lang="fa" aria-pressed="false">فا</button></div>
   </nav>
 </div></header>
 
@@ -413,5 +457,16 @@ docker run --rm -p 8585:8585 mihanstack \
   if('IntersectionObserver' in window){var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){io.disconnect();setTimeout(function(){$('#run').click()},500)}});io.observe(log)}
 })();
 </script>
+<script>/*mrz-theme-toggle*/(function(){var d=document.documentElement,q=window.matchMedia?matchMedia('(prefers-color-scheme: dark)'):null;
+function fa(){return d.getAttribute('data-lang')==='fa'||d.lang==='fa'}
+function sync(){var t=d.getAttribute('data-theme')==='dark'?'dark':'light',f=fa();
+document.querySelectorAll('[data-theme-toggle]').forEach(function(x){var l=t==='dark'?(f?'\u062a\u063a\u06cc\u06cc\u0631 \u0628\u0647 \u062d\u0627\u0644\u062a \u0631\u0648\u0634\u0646':'Switch to light mode'):(f?'\u062a\u063a\u06cc\u06cc\u0631 \u0628\u0647 \u062d\u0627\u0644\u062a \u062a\u06cc\u0631\u0647':'Switch to dark mode');x.setAttribute('aria-label',l);x.title=l;x.setAttribute('aria-pressed',t==='dark'?'true':'false')});
+document.querySelectorAll('picture source[media*="prefers-color-scheme"]').forEach(function(s){if(!s.getAttribute('data-mq'))s.setAttribute('data-mq',s.media);var wd=/dark/.test(s.getAttribute('data-mq'));s.media=(wd===(t==='dark'))?'all':'not all'});
+var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',t==='dark'?'#070b1a':'#f7f5ef')}
+function set(t,save){d.setAttribute('data-theme',t);d.style.colorScheme=t;if(save){try{localStorage.setItem('mrz-theme',t)}catch(e){}}try{document.dispatchEvent(new CustomEvent('mrz-theme',{detail:t}))}catch(e){}}
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-theme-toggle]');if(!b)return;set(d.getAttribute('data-theme')==='dark'?'light':'dark',true)});
+if(q&&q.addEventListener)q.addEventListener('change',function(){var m;try{m=localStorage.getItem('mrz-theme')}catch(e){}if(m!=='light'&&m!=='dark')set(q.matches?'dark':'light',false)});
+window.addEventListener('storage',function(e){if(e.key==='mrz-theme'){var m=e.newValue;set(m==='light'||m==='dark'?m:(q&&q.matches?'dark':'light'),false)}});
+if(window.MutationObserver)new MutationObserver(sync).observe(d,{attributes:true,attributeFilter:['data-lang','lang','data-theme']});sync()})()</script>
 </body>
 </html>
