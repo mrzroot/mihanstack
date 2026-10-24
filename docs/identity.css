@@ -1,0 +1,23 @@
+/* mihanstack identity: "isometric city". Midnight indigo + four service colours (dark) / daylight steel (light). Syne. Isometric skyline, clickable towers fail and recover. */
+@font-face{font-family:'Syne';src:url(fonts/syne-800.woff2) format('woff2');font-weight:700 800;font-display:swap}
+html[data-theme=dark]:root{--bg:#050918;--bg2:#080e24;--panel:#0b1330;--panel2:#101a3d;--line:#1a2750;--line2:#2a3c7a;--fg:#eaf0ff;--mut:#9aa8d4;--dim:#6e7db0;--teal:#2ee6c5;--saf:#ffb547;--rose:#ff6b8b;--blue:#6aa7ff}
+html[data-theme=light]:root{--bg:#e3ecf6;--bg2:#d6e3f1;--panel:#f6faff;--panel2:#e8f0f9;--line:#c1d1e4;--line2:#9fb6d2;--fg:#0b1730;--mut:#3a4b6e;--dim:#5b6c8e;--teal:#0a8070;--saf:#b8690a;--rose:#c0264a;--blue:#1f56b8}
+h1,h2,.brand{font-family:Syne,Vazirmatn,system-ui,sans-serif;font-weight:800!important;letter-spacing:-.035em}
+h1{font-size:clamp(26px,3.6vw,54px)!important;line-height:1!important}
+h2{font-size:clamp(30px,3.8vw,54px)!important;line-height:1.05!important}
+html[data-lang=fa] h1,html[data-lang=fa] h2,html[lang=fa] h1,html[lang=fa] h2{font-family:Vazirmatn,sans-serif;letter-spacing:0;line-height:1.35!important}
+html[data-lang=fa] h1,html[lang=fa] h1{font-size:clamp(28px,3.8vw,54px)!important}
+h1 .hl{background:linear-gradient(90deg,var(--saf),var(--rose),var(--blue),var(--teal),var(--saf));background-size:300% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:sl 10s linear infinite}
+@keyframes sl{to{background-position:300% 0}}
+.hero{position:relative;overflow:clip;isolation:isolate;padding-bottom:clamp(120px,15vw,240px)!important}
+.hero .wrap{position:relative;z-index:2}
+.city{position:absolute;inset:auto 0 0 0;height:min(380px,48vw);width:100%;z-index:1}
+.city-lab{position:absolute;z-index:3;pointer-events:none;font:700 12px/1 Syne,sans-serif;padding:6px 10px;border-radius:8px;background:var(--panel);border:1px solid var(--line2);color:var(--fg);transform:translate(-50%,-100%);white-space:nowrap}
+.btn{border-radius:14px!important;transition:transform .2s}
+.btn:hover{transform:translateY(-3px)}
+.s{position:relative;transition:transform .3s,box-shadow .3s}
+.s:hover{transform:translateY(-6px);box-shadow:0 22px 40px -22px var(--c)}
+.s::before{content:'';position:absolute;inset:0 0 auto 0;height:4px;background:var(--c);border-radius:inherit;border-bottom-left-radius:0;border-bottom-right-radius:0}
+@media(max-width:520px){.brand .fa-name{display:none}.hero{padding-bottom:170px!important}}
+@media(prefers-reduced-motion:reduce){h1 .hl{animation:none}}
+h1,h2{overflow-wrap:break-word}

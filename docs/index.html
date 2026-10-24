@@ -188,7 +188,7 @@ html[data-theme=light] .tabs button[aria-selected=true]{background:#fffdf8}
 html[data-theme=light] pre{background:#fffdf8;color:#0b1230}
 html[data-theme=light] .note{border-color:rgba(138,92,12,.35);background:rgba(232,176,75,.1)}
 </style>
-</head>
+<link rel="preload" href="fonts/syne-800.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="identity.css"></head>
 <body>
 <header class="top"><div class="wrap">
   <a class="brand" href="#"><img src="favicon.svg" alt=""> MihanStack <small>v0.1.1</small></a>
@@ -468,5 +468,5 @@ document.addEventListener('click',function(e){var b=e.target.closest&&e.target.c
 if(q&&q.addEventListener)q.addEventListener('change',function(){var m;try{m=localStorage.getItem('mrz-theme')}catch(e){}if(m!=='light'&&m!=='dark')set(q.matches?'dark':'light',false)});
 window.addEventListener('storage',function(e){if(e.key==='mrz-theme'){var m=e.newValue;set(m==='light'||m==='dark'?m:(q&&q.matches?'dark':'light'),false)}});
 if(window.MutationObserver)new MutationObserver(sync).observe(d,{attributes:true,attributeFilter:['data-lang','lang','data-theme']});sync()})()</script>
-</body>
+<script src="fx.js" defer></script></body>
 </html>
