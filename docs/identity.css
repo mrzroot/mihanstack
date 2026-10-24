@@ -21,3 +21,9 @@ h1 .hl{background:linear-gradient(90deg,var(--saf),var(--rose),var(--blue),var(-
 @media(max-width:520px){.brand .fa-name{display:none}.hero{padding-bottom:170px!important}}
 @media(prefers-reduced-motion:reduce){h1 .hl{animation:none}}
 h1,h2{overflow-wrap:break-word}
+
+/* a11y: AA contrast for small text in light theme */
+html[data-theme=light] .eyebrow,html[data-theme=light] .eyebrow span,html[data-theme=light] .sc2 code,html[data-theme=light] .b,html[data-theme=light] .note b{color:#8c5008}html[data-theme=light] .a{color:#09796a}html[data-theme=light] .cap,html[data-theme=light] .cap span,html[data-theme=light] .wrap>span,html[data-theme=light] .wrap>span span{color:#536382}
+html[data-theme=light] .f .vis .b{color:#8c5008}
+a[href$="mrzroot.github.io/"]{text-decoration:underline;text-underline-offset:3px}
+html[data-theme=light] .f .vis .a{color:#09796a}
