@@ -27,3 +27,6 @@ html[data-theme=light] .eyebrow,html[data-theme=light] .eyebrow span,html[data-t
 html[data-theme=light] .f .vis .b{color:#8c5008}
 a[href$="mrzroot.github.io/"]{text-decoration:underline;text-underline-offset:3px}
 html[data-theme=light] .f .vis .a{color:#09796a}
+
+/* QA: keep the "A" (automatic) badge anchored to the theme button */
+html .mrz-tt{position:relative}
