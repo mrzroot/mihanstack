@@ -1,7 +1,7 @@
 /* mihanstack identity: "isometric city". Midnight indigo + four service colours (dark) / daylight steel (light). Syne. Isometric skyline, clickable towers fail and recover. */
 @font-face{font-family:'Syne';src:url(fonts/syne-800.woff2) format('woff2');font-weight:700 800;font-display:swap}
-html[data-theme=dark]:root{--bg:#050918;--bg2:#080e24;--panel:#0b1330;--panel2:#101a3d;--line:#1a2750;--line2:#2a3c7a;--fg:#eaf0ff;--mut:#9aa8d4;--dim:#6e7db0;--teal:#2ee6c5;--saf:#ffb547;--rose:#ff6b8b;--blue:#6aa7ff}
-html[data-theme=light]:root{--bg:#e3ecf6;--bg2:#d6e3f1;--panel:#f6faff;--panel2:#e8f0f9;--line:#c1d1e4;--line2:#9fb6d2;--fg:#0b1730;--mut:#3a4b6e;--dim:#5b6c8e;--teal:#0a8070;--saf:#b8690a;--rose:#c0264a;--blue:#1f56b8}
+html[data-theme=dark]:root{--bg:#050918;--bg2:#080e24;--panel:#0b1330;--panel2:#101a3d;--line:#1a2750;--line2:#2a3c7a;--fg:#eaf0ff;--mut:#9aa8d4;--dim:#6e7db0;--teal:#e65f2e;--saf:#ffb547;--rose:#ff6b8b;--blue:#6aa7ff}
+html[data-theme=light]:root{--bg:#e3ecf6;--bg2:#d6e3f1;--panel:#f6faff;--panel2:#e8f0f9;--line:#c1d1e4;--line2:#9fb6d2;--fg:#0b1730;--mut:#3a4b6e;--dim:#5b6c8e;--teal:#80220a;--saf:#b8690a;--rose:#c0264a;--blue:#1f56b8}
 h1,h2,.brand{font-family:Syne,Vazirmatn,system-ui,sans-serif;font-weight:800!important;letter-spacing:-.035em}
 h1{font-size:clamp(26px,3.6vw,54px)!important;line-height:1!important}
 h2{font-size:clamp(30px,3.8vw,54px)!important;line-height:1.05!important}
@@ -23,10 +23,10 @@ h1 .hl{background:linear-gradient(90deg,var(--saf),var(--rose),var(--blue),var(-
 h1,h2{overflow-wrap:break-word}
 
 /* a11y: AA contrast for small text in light theme */
-html[data-theme=light] .eyebrow,html[data-theme=light] .eyebrow span,html[data-theme=light] .sc2 code,html[data-theme=light] .b,html[data-theme=light] .note b{color:#8c5008}html[data-theme=light] .a{color:#09796a}html[data-theme=light] .cap,html[data-theme=light] .cap span,html[data-theme=light] .wrap>span,html[data-theme=light] .wrap>span span{color:#536382}
+html[data-theme=light] .eyebrow,html[data-theme=light] .eyebrow span,html[data-theme=light] .sc2 code,html[data-theme=light] .b,html[data-theme=light] .note b{color:#8c5008}html[data-theme=light] .a{color:#791f09}html[data-theme=light] .cap,html[data-theme=light] .cap span,html[data-theme=light] .wrap>span,html[data-theme=light] .wrap>span span{color:#536382}
 html[data-theme=light] .f .vis .b{color:#8c5008}
 a[href$="mrzroot.github.io/"]{text-decoration:underline;text-underline-offset:3px}
-html[data-theme=light] .f .vis .a{color:#09796a}
+html[data-theme=light] .f .vis .a{color:#791f09}
 
 /* QA: keep the "A" (automatic) badge anchored to the theme button */
 html .mrz-tt{position:relative}

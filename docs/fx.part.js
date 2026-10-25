@@ -1,6 +1,6 @@
 (function(){var hero=FX.$('.hero');if(!hero)return;var cv=document.createElement('canvas');cv.className='city';cv.setAttribute('aria-hidden','true');hero.insertBefore(cv,hero.firstChild);
 var lab=document.createElement('div');lab.className='city-lab';lab.style.display='none';hero.appendChild(lab);
-var SV=[['Zarinpal','#ffb547'],['Zibal','#2ee6c5'],['Kavenegar','#6aa7ff'],['SMS.ir','#ff6b8b']],B=[],fail={},hov=-1,rnd=(function(s){return function(){s=(s*16807)%2147483647;return s/2147483647}})(7);
+var SV=[['Zarinpal','#ffb547'],['Zibal','#e65f2e'],['Kavenegar','#6aa7ff'],['SMS.ir','#ff6b8b']],B=[],fail={},hov=-1,rnd=(function(s){return function(){s=(s*16807)%2147483647;return s/2147483647}})(7);
 function build(w){B=[];var tw=w<600?20:30,x=tw*2,i=0,sv=0;while(x<w+tw){var isS=(i%4===1)&&sv<4&&x>w*.18&&x<w*.9;var b={x:x,tw:tw,h:(isS?150:40)+rnd()*(isS?80:90),s:isS?sv++:-1,ph:rnd()*9,seed:rnd()};B.push(b);x+=tw*(isS?2.2:1.7);i++}
  /* guarantee four towers spread across */ if(sv<4){var idx=[.2,.4,.6,.8].map(function(f){return Math.floor(B.length*f)});B.forEach(function(b){if(b.s>=0)b.s=-1;b.h=Math.min(b.h,110)});idx.forEach(function(k,j){B[k].s=j;B[k].h=170+rnd()*60})}}
 function shade(hex,k){var n=parseInt(hex.slice(1),16),r=(n>>16)&255,g=(n>>8)&255,b=n&255;return'rgb('+Math.round(r*k)+','+Math.round(g*k)+','+Math.round(b*k)+')'}
