@@ -1,3 +1,4 @@
+// Webhook playground: provider-shaped callbacks, sending/repeating with timing, error reporting, admin API.
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { builtinProviders } from "../src/providers/index.js";
 import type { RunningStack } from "../src/server.js";

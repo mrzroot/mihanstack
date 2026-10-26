@@ -1,3 +1,4 @@
+// Shared test helpers: boot an in-process stack on a free port, tiny JSON get/post clients, a callback receiver and waitFor.
 import { createServer, type IncomingMessage } from "node:http";
 import type { AddressInfo } from "node:net";
 import { startServer, type RunningStack, type StartOptions } from "../src/server.js";

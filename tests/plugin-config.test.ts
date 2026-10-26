@@ -1,3 +1,4 @@
+// Provider plugins (defineProvider, inline and file-based) and parsing/validation of mihanstack.yml.
 import { mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";

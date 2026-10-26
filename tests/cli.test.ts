@@ -1,3 +1,4 @@
+// Black-box tests of the built CLI (dist/cli.js) run as a child process: version, init, webhook, start + chaos, flag errors.
 import { spawn, spawnSync } from "node:child_process";
 import { existsSync, mkdtempSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";

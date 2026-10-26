@@ -1,3 +1,4 @@
+// Kavenegar and SMS.ir emulation: send, verify/lookup templates, bulk, status, credit and the error-code mapping.
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import type { RunningStack } from "../src/server.js";
 import { boot, get, post } from "./helpers.js";

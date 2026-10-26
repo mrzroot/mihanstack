@@ -1,3 +1,4 @@
+// Zibal emulation: request, start, callback and verify, its result codes and failure scenarios.
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import type { RunningStack } from "../src/server.js";
 import { boot, get, post } from "./helpers.js";

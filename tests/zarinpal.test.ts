@@ -1,3 +1,4 @@
+// Zarinpal emulation: happy path through StartPay, callback and verify; error codes (-9, -10, -11, -50, -51, -54); duplicate callbacks; inquiry.
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import type { RunningStack } from "../src/server.js";
 import { boot, get, MERCHANT, post, receiver, waitFor } from "./helpers.js";

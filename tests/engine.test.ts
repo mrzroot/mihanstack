@@ -1,3 +1,4 @@
+// Core engine over HTTP: host/path routing, scenarios (errors, network faults, latency), admin API, secret redaction in the request log, and chaos mode.
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { REDACTED } from "../src/redact.js";
 import type { RunningStack } from "../src/server.js";
