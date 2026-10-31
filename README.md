@@ -359,3 +359,7 @@ npx github:mrzroot/mihanstack chaos payment --rate 0.3
 
 [MIT](LICENSE) © mrzroot. Not affiliated with Zarinpal, Zibal, Kavenegar or SMS.ir; names are used only to
 describe API compatibility.
+
+## Contributing
+
+Bug reports and ideas are welcome: open an [issue](../../issues/new/choose) (the templates ask for the steps and version we need). For code, read [CONTRIBUTING.md](CONTRIBUTING.md) first, keep each pull request to one change, and run the tests before you open it.
