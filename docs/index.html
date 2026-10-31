@@ -146,6 +146,20 @@ footer a{color:var(--mut)}
 .hgrid>*,.two>*,.svc>*,.trio>*{min-width:0}
 @media (max-width:640px){.top nav a.h{display:none}.top nav{gap:10px}.gh{display:none!important}.brand small{display:none}.svc{grid-template-columns:1fr}.hero{padding:56px 0 50px}section{padding:68px 0}.row label{width:100%}.log{height:300px}.run{margin-left:0}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.log p{opacity:1;transform:none}}
+/* how it works: four steps, a request packet travels the rail; off under reduced motion */
+.hw{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;position:relative;counter-reset:hw}
+.hw li{counter-increment:hw;border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:46px 18px 18px;position:relative;min-width:0;transition:border-color .4s,box-shadow .4s,opacity .6s,translate .7s cubic-bezier(.2,.75,.2,1);transition-delay:0s,0s,calc(var(--i,0)*140ms),calc(var(--i,0)*140ms)}
+.hw li::before{content:counter(hw);position:absolute;top:14px;inset-inline-start:18px;width:24px;height:24px;border-radius:7px;display:grid;place-items:center;background:var(--saf);color:var(--bg);font:700 12px var(--mono)}
+html[lang=fa] .hw li::before{content:counter(hw,persian);font-family:var(--fa)}
+.hw h3{margin:0 0 6px;font-size:17px}.hw p{margin:0;color:var(--mut);font-size:14.5px}
+.hw code{display:block;margin-top:12px;font:12.5px/1.5 var(--mono);color:var(--saf);background:color-mix(in srgb,var(--line) 45%,transparent);border-radius:8px;padding:8px 10px;overflow-wrap:anywhere;direction:ltr;text-align:left}
+.hw li.on{border-color:var(--teal);box-shadow:0 0 0 1px var(--teal),0 18px 40px -24px var(--teal)}
+.hwrail{height:3px;border-radius:3px;background:var(--line);margin:0 0 22px;position:relative;overflow:hidden}
+.hwrail b{position:absolute;inset-block:0;width:18%;border-radius:3px;background:linear-gradient(90deg,transparent,var(--teal),var(--saf));inset-inline-start:calc(var(--p,0)*82%);transition:inset-inline-start .9s cubic-bezier(.5,0,.2,1)}
+html.hwjs .hw li{opacity:0;translate:0 20px}html.hwjs .hw.in li{opacity:1;translate:0 0}
+@media(max-width:980px){.hw{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.hw{grid-template-columns:minmax(0,1fr)}}
+@media(prefers-reduced-motion:reduce){html.hwjs .hw li{opacity:1;translate:none}.hwrail{display:none}}
 </style>
 <style id="mrz-theme-css">/*mrz-theme-badge*/[data-theme-toggle]{position:relative}
 html[data-theme-mode=system] [data-theme-toggle]::after{content:"A";position:absolute;inset-inline-end:-3px;bottom:-3px;min-width:13px;height:13px;padding:0 2px;box-sizing:border-box;border-radius:7px;font:700 8px/13px system-ui,sans-serif;letter-spacing:0;text-align:center;background:#14181f;color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.55);pointer-events:none}
@@ -246,6 +260,19 @@ html[data-theme=light] .note{border-color:rgba(138,92,12,.35);background:rgba(23
   </div>
   <figure class="shot"><img id="dash" src="dashboard-en.png" alt="MihanStack dashboard: services with scenario switches, live request log and SMS inbox" width="1440" height="900" loading="lazy"></figure>
   <p class="cap"><span lang="en">The built-in dashboard at localhost:8585: scenario switches, live redacted request log, chaos, webhooks and the SMS inbox. Fully offline, English and Persian.</span><span lang="fa">داشبورد داخلی در localhost:8585: کلید سناریوها، لاگ زندهٔ درخواست‌ها با حذف اطلاعات حساس، آشوب، وب‌هوک و صندوق پیامک. کاملاً آفلاین، فارسی و انگلیسی.</span></p>
+</div></section>
+
+<section id="how"><div class="wrap">
+  <div class="eyebrow"><span lang="en">How it works</span><span lang="fa">چطور کار می‌کند</span></div>
+  <h2><span lang="en">Four steps from install to a reproducible failure.</span><span lang="fa">از نصب تا یک خطای تکرارپذیر در چهار گام.</span></h2>
+  <p class="sub"><span lang="en">Your code does not change: only the base URL it calls does.</span><span lang="fa">کد شما تغییری نمی‌کند؛ فقط نشانی پایه‌ای که صدا می‌زند عوض می‌شود.</span></p>
+  <div class="hwrail" aria-hidden="true"><b></b></div>
+  <ol class="hw">
+    <li><h3><span lang="en">Start it</span><span lang="fa">اجرا کنید</span></h3><p><span lang="en">One command (or the Docker image) starts every emulator and the dashboard on one port.</span><span lang="fa">با یک فرمان (یا ایمیج داکر) همهٔ شبیه‌سازها و داشبورد روی یک درگاه بالا می‌آیند.</span></p><code>npx github:mrzroot/mihanstack</code></li>
+    <li><h3><span lang="en">Swap the base URL</span><span lang="fa">نشانی پایه را عوض کنید</span></h3><p><span lang="en">Point your SDK or HTTP client at MihanStack instead of the real provider.</span><span lang="fa">SDK یا کلاینت HTTP را به جای سرویس واقعی به MihanStack وصل کنید.</span></p><code>payment.zarinpal.com → localhost:8585/zarinpal</code></li>
+    <li><h3><span lang="en">Pick a scenario</span><span lang="fa">سناریو را انتخاب کنید</span></h3><p><span lang="en">Choose what should go wrong: in the dashboard, in mihanstack.yml or per request.</span><span lang="fa">انتخاب کنید چه چیزی خراب شود: در داشبورد، در mihanstack.yml یا برای هر درخواست.</span></p><code>X-Mihan-Scenario: wrong_amount</code></li>
+    <li><h3><span lang="en">Test and watch</span><span lang="fa">آزمایش کنید و ببینید</span></h3><p><span lang="en">Run your flow and read every request, callback and SMS in the dashboard log and inbox.</span><span lang="fa">روند را اجرا کنید و هر درخواست، بازگشت و پیامک را در لاگ و صندوق داشبورد ببینید.</span></p><code>localhost:8585 · log · inbox</code></li>
+  </ol>
 </div></section>
 
 <section id="scenarios"><div class="wrap">
@@ -491,6 +518,7 @@ window.addEventListener('storage',function(e){if(e.key===K||e.key===null)apply(g
 window.addEventListener('pageshow',function(e){if(e.persisted)apply(get(),false)});
 if(window.MutationObserver)new MutationObserver(sync).observe(d,{attributes:true,attributeFilter:['data-lang','lang']});
 /* normalise whatever the boot script set */apply(get(),false)})();</script>
+<script>/* how-it-works: staggered reveal, then a highlight and a packet walk the four steps */(function(){var hw=document.querySelector('.hw'),rail=document.querySelector('.hwrail b');if(!hw||!('IntersectionObserver' in window))return;if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;document.documentElement.classList.add('hwjs');var li=[].slice.call(hw.children),k=-1,t=null,vis=false,hold=false;li.forEach(function(e,i){e.style.setProperty('--i',i)});function step(){if(hold)return;k=(k+1)%li.length;li.forEach(function(e,i){e.classList.toggle('on',i===k)});if(rail)rail.style.setProperty('--p',k/(li.length-1))}function go(){if(vis&&!t){step();t=setInterval(step,2400)}}hw.addEventListener('mouseenter',function(){hold=true});hw.addEventListener('mouseleave',function(){hold=false});new IntersectionObserver(function(e){vis=e[0].isIntersecting;if(vis){hw.classList.add('in');setTimeout(go,700)}else{clearInterval(t);t=null}},{threshold:.25}).observe(hw)})()</script>
 <script src="fx.js" defer></script><script>/* keyboard access for horizontally scrollable code blocks */(function(){function f(){document.querySelectorAll('pre,.code,[id^=c-],#cmd,#c1,#t1').forEach(function(e){if(e.scrollWidth>e.clientWidth+1&&!e.hasAttribute('tabindex'))e.setAttribute('tabindex','0')})}addEventListener('load',f);addEventListener('resize',f);setTimeout(f,1500)})()</script>
 </body>
 </html>
