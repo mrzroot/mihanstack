@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-lang="en" dir="ltr">
+<html lang="fa" data-lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
 <meta name="theme-color" content="#050918" media="(prefers-color-scheme: dark)">
@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://mrzroot.github.io/mihanstack/dashboard-en.png">
 <link rel="canonical" href="https://mrzroot.github.io/mihanstack/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<script>(function(){var d=document.documentElement,l='en';try{l=new URLSearchParams(location.search).get('lang')||localStorage.getItem('mrz-lang')||'en'}catch(e){}if(l==='fa'){d.lang='fa';d.dir='rtl';d.setAttribute('data-lang','fa')}})()</script>
+<script>(function(){var d=document.documentElement,l='fa';try{l=new URLSearchParams(location.search).get('lang')||localStorage.getItem('mrz-lang')||'fa'}catch(e){}if(l!=='en')l='fa';d.lang=l;d.dir=l==='fa'?'rtl':'ltr';d.setAttribute('data-lang',l)})()</script>
 <style>
 @font-face{font-family:Vazirmatn;src:url(fonts/vazirmatn-arabic.woff2) format('woff2');font-weight:400 800;font-display:swap;unicode-range:U+0600-06FF,U+0750-077F,U+200C-200E,U+FB50-FDFF,U+FE70-FEFC}
 :root{--bg:#070b14;--bg2:#0b1222;--panel:#0e1729;--panel2:#111d33;--line:#1c2a45;--line2:#273a5e;--fg:#e8eefc;--mut:#8b9bbd;--dim:#5d6e92;
@@ -394,7 +394,7 @@ docker run --rm -p 8585:8585 mihanstack \
     $$('[data-set-lang]').forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-set-lang')===l))});
     var d=$('#dash');if(d)d.src=l==='fa'?'dashboard-fa.png':'dashboard-en.png';
     if(save)try{localStorage.setItem('mrz-lang',l)}catch(e){}}
-  setLang(R.getAttribute('data-lang')||'en');
+  setLang(R.getAttribute('data-lang')||'fa');
   $$('[data-set-lang]').forEach(function(b){b.addEventListener('click',function(){setLang(b.getAttribute('data-set-lang'),true)})});
   $$('[data-copy]').forEach(function(b){b.addEventListener('click',function(){var t=document.getElementById(b.getAttribute('data-copy')).textContent;
     if(navigator.clipboard)navigator.clipboard.writeText(t).then(function(){b.classList.add('ok');setTimeout(function(){b.classList.remove('ok')},1300)})})});
