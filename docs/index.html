@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fa" data-lang="fa" dir="rtl">
+<html data-portfolio-design="mihanstack" lang="fa" data-lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
 <meta name="theme-color" content="#050918" media="(prefers-color-scheme: dark)">
@@ -206,7 +206,8 @@ html[data-theme=light] .tabs button[aria-selected=true]{background:#fffdf8}
 html[data-theme=light] pre{background:#fffdf8;color:#0b1230}
 html[data-theme=light] .note{border-color:rgba(138,92,12,.35);background:rgba(232,176,75,.1)}
 </style>
-<link rel="preload" href="fonts/syne-800.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="identity.css"></head>
+<link rel="stylesheet" href="identity.css"><link rel="stylesheet" href="portfolio-reframe.css">
+</head>
 <body>
 <header class="top"><div class="wrap">
   <a class="brand" href="#"><img src="favicon.svg" alt=""> MihanStack <small>v0.1.1</small></a>
@@ -221,6 +222,20 @@ html[data-theme=light] .note{border-color:rgba(138,92,12,.35);background:rgba(23
 </div></header>
 
 <main>
+
+<!-- Portfolio design: localized overview; original project sections remain below. -->
+<aside class="rr-signal">
+  <div class="rr-annotation"><p class="rr-product"><bdi>mihanstack</bdi><span><span class="rr-en" lang="en">Local integration lab</span><span class="rr-fa" lang="fa">آزمایشگاه اتصال محلی</span></span></p>
+    <p class="rr-promise"><span class="rr-en" lang="en">Exercise real integrations without real transactions</span><span class="rr-fa" lang="fa">اتصال واقعی را بدون تراکنش واقعی امتحان کنید</span></p>
+    <a class="rr-start" href="#scenarios"><span class="rr-en" lang="en">Failure scenarios</span><span class="rr-fa" lang="fa">سناریوهای خطا</span> <span aria-hidden="true">↓</span></a>
+  </div>
+  <div class="rr-visual" aria-hidden="true">
+    <svg viewBox="0 0 360 100" width="360" height="100" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M70 10h208l15 15v60H70z"/><path d="M70 29h223M84 19h4m6 0h4m6 0h4"/><rect x="88" y="41" width="52" height="20" rx="5"/><rect x="153" y="41" width="52" height="20" rx="5"/><rect x="218" y="41" width="52" height="20" rx="5"/><path d="M94 73h55m13 0h101" opacity=".54"/><path d="m176 52 4 4 8-8"/><circle cx="114" cy="51" r="4"/><path d="M237 52h14"/>
+    </svg>
+    <div class="rr-steps"><span><span class="rr-en" lang="en">Request</span><span class="rr-fa" lang="fa">درخواست</span></span><span><span class="rr-en" lang="en">Emulate</span><span class="rr-fa" lang="fa">شبیه‌سازی</span></span><span><span class="rr-en" lang="en">Inspect</span><span class="rr-fa" lang="fa">بررسی</span></span></div>
+  </div>
+</aside>
 <div class="hero"><div class="wrap hgrid">
   <div>
     <span class="tag"><b>v0.1.1</b><span lang="en">LocalStack for Iranian APIs · MIT</span><span lang="fa">LocalStack برای APIهای ایرانی · MIT</span></span>
@@ -522,3 +537,4 @@ if(window.MutationObserver)new MutationObserver(sync).observe(d,{attributes:true
 <script src="fx.js" defer></script><script>/* keyboard access for horizontally scrollable code blocks */(function(){function f(){document.querySelectorAll('pre,.code,[id^=c-],#cmd,#c1,#t1').forEach(function(e){if(e.scrollWidth>e.clientWidth+1&&!e.hasAttribute('tabindex'))e.setAttribute('tabindex','0')})}addEventListener('load',f);addEventListener('resize',f);setTimeout(f,1500)})()</script>
 </body>
 </html>
+

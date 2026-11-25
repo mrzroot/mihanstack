@@ -1,0 +1,160 @@
+@font-face{font-family:VazirmatnPortfolio;src:url("fonts/Vazirmatn-Variable.woff2") format("woff2");font-style:normal;font-weight:100 900;font-display:swap}
+html[data-portfolio-design="mihanstack"]{--rr-brand:#10263f;--rr-rich:#13315d;--rr-fg:#ddedff;--rr-accent:#98ecff;--rr-muted:#a8c5e4;--rr-surface:#eaf5ff}
+/* Portfolio reframe. Existing diagrams, demo code and semantic sections are retained. */
+html[data-portfolio-design],
+html[data-portfolio-design] body {font-family:VazirmatnPortfolio,sans-serif!important}
+html[data-portfolio-design] :is(body *,#portfolio-font-priority),
+html[data-portfolio-design] :is(body *,#portfolio-font-priority)::before,
+html[data-portfolio-design] :is(body *,#portfolio-font-priority)::after {
+  font-family:VazirmatnPortfolio,sans-serif!important;
+}
+html[data-portfolio-design] {
+  --serif:VazirmatnPortfolio;--sans:VazirmatnPortfolio;--fa:VazirmatnPortfolio;
+  --mono:VazirmatnPortfolio;--display:VazirmatnPortfolio;--f-b:VazirmatnPortfolio;
+  --f-d:VazirmatnPortfolio;--f-m:VazirmatnPortfolio;
+  --rr-content:min(100% - 2rem, 76rem);
+  --rr-line:color-mix(in srgb,var(--rr-fg) 24%,transparent);
+  --rr-glass:color-mix(in srgb,var(--rr-brand) 55%,transparent);
+}
+html[data-portfolio-design] :is(button,input,select,textarea,pre,code,kbd,samp,svg text) {font-family:VazirmatnPortfolio,sans-serif!important}
+html[data-portfolio-design] :is(header.top,body>nav) {
+  -webkit-backdrop-filter:saturate(115%) blur(16px);backdrop-filter:saturate(115%) blur(16px);
+}
+html[data-portfolio-design] .rr-signal {
+  box-sizing:border-box;
+  isolation:isolate;
+  margin:clamp(1rem,3vw,2.65rem) auto;
+  width:var(--rr-content);
+  min-height:14rem;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(12rem,.73fr);
+  gap:clamp(1rem,4vw,3rem);
+  align-items:center;
+  padding:clamp(1.15rem,4.5vw,3.6rem);
+  color:var(--rr-fg);
+  direction:inherit;
+  background-color:var(--rr-brand);
+  border:1px solid var(--rr-line);
+  border-radius:1.55rem;
+  box-shadow:0 1.15rem 3.6rem #1114292a;
+  position:relative;
+  overflow:hidden;
+  line-height:1.5;
+  text-align:start;
+}
+.rr-signal::before {
+  content:"";
+  position:absolute;z-index:-1;inset:0;pointer-events:none;
+  background-image:radial-gradient(ellipse at 85% 22%,var(--rr-rich),transparent 76%),
+    repeating-linear-gradient(90deg,transparent 0 3.3rem,#fff1 3.3rem calc(3.3rem + 1px));
+}
+.rr-signal .rr-annotation,.rr-signal .rr-visual{min-width:0}
+.rr-signal .rr-product {
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:.22rem .7rem;
+  color:var(--rr-muted);letter-spacing:.035em;font-size:.83rem;margin:0 0 .65rem;
+  line-height:1.5;
+}
+.rr-signal .rr-product bdi{
+  font-size:1.04rem;letter-spacing:.06em;font-weight:850;color:var(--rr-accent)
+}
+.rr-signal .rr-promise {
+  font-weight:850;font-size:clamp(1.6rem,3.1vw,3.65rem);line-height:1.1;
+  margin:0 0 1.2rem;letter-spacing:-.048em;max-width:22ch;color:var(--rr-fg);
+}
+.rr-signal .rr-start {
+  display:inline-flex;align-items:center;gap:.65rem;border-radius:.8rem;min-height:44px;
+  max-width:100%;font-size:clamp(.8rem,1.15vw,.95rem);font-weight:790;padding:.42rem .85rem;
+  background:var(--rr-accent);color:var(--rr-brand);border:1px solid var(--rr-accent);
+  text-decoration:none;text-align:start;line-height:1.4;
+}
+.rr-signal .rr-start:is(:hover,:focus-visible) {color:var(--rr-fg);background:var(--rr-brand);outline-offset:4px}
+.rr-signal .rr-visual {
+  color:var(--rr-accent);padding:clamp(.65rem,2vw,1.2rem);
+  background:var(--rr-glass);border:1px solid var(--rr-line);
+  border-radius:1.05rem;
+}
+.rr-signal .rr-visual svg {display:block;width:100%;height:auto;margin-inline:auto;max-height:9rem}
+.rr-signal .rr-steps {
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.4rem;
+  padding-top:.55rem;margin-top:.4rem;border-top:1px solid var(--rr-line);
+  font-size:clamp(.66rem,1.15vw,.82rem);text-align:center;max-width:none;color:var(--rr-muted);
+}
+.rr-signal .rr-steps>span {white-space:normal;overflow-wrap:anywhere}
+.rr-signal .rr-en,.rr-signal .rr-fa {overflow-wrap:break-word}
+.rr-signal .rr-fa {display:none}
+html:is([lang="fa"],[dir="rtl"],[data-lang="fa"]) .rr-fa {display:inline}
+html:is([lang="fa"],[dir="rtl"],[data-lang="fa"]) .rr-en {display:none}
+html:is([lang="fa"],[dir="rtl"],[data-lang="fa"]) .rr-signal .rr-promise {
+  letter-spacing:0;line-height:1.34;max-width:24ch;
+}
+/* Rebuild the editorial hero and section rhythm without affecting demo state or IDs. */
+html[data-portfolio-design] :is(.hero,.pitch) h1 {
+  font-size:clamp(2.05rem,5.8vw,5.55rem)!important;
+  font-weight:860!important;line-height:1.12!important;letter-spacing:-.06em;
+  text-wrap:balance;max-width:18ch;margin-block:0 .75rem;
+}
+html[data-portfolio-design]:is([lang=fa],[dir=rtl],[data-lang=fa]) :is(.hero,.pitch) h1 {
+  line-height:1.34!important;letter-spacing:0;
+}
+html[data-portfolio-design] :is(.hero,.pitch) :is(.lead,.lede) {line-height:1.65;max-inline-size:58ch}
+html[data-portfolio-design] :is(main,body)>section[id]:not(.hero) {scroll-margin-top:5.6rem}
+html[data-portfolio-design] :is(main,body)>section:not(.hero,.pitch),html[data-portfolio-design] main>.layer>section {
+  border-block-start:1px solid currentColor;
+  border-block-start-color:color-mix(in srgb,currentColor 13%,transparent);
+}
+html[data-portfolio-design] section h2 {
+  font-weight:810;font-size:clamp(1.55rem,3.8vw,3.15rem);line-height:1.17;
+  letter-spacing:-.035em;text-wrap:balance;
+}
+html[data-portfolio-design]:is([lang=fa],[dir=rtl],[data-lang=fa]) section h2 {letter-spacing:0;line-height:1.38}
+html[data-portfolio-design] :is(.hero,.pitch) :is(.cta,.install,.inst,.cmd,.meta,.swap) {min-width:0;max-width:100%}
+html[data-portfolio-design] :is(main,body)>section :is(pre,table) {max-width:100%}
+html[data-portfolio-design] :is(.foot,body>footer) {padding-block:2rem}
+html[data-portfolio-design] :is(.foot,body>footer) a {text-underline-offset:.27em}
+html[data-portfolio-design] input,html[data-portfolio-design] textarea {border-radius:.6rem}
+html[data-portfolio-design] .rr-visual {pointer-events:none}
+/* Product art direction extends outside the overview. Selectors intentionally
+   target presentation containers rather than JavaScript state or controls. */
+html[data-portfolio-design="dokhaneh"] .rr-signal {border-radius:.35rem 2rem .35rem 2rem}
+html[data-portfolio-design="dokhaneh"] .hero .map {
+  background:linear-gradient(160deg,#7247352a,transparent 55%),var(--card);
+  border:1px solid var(--line2);border-radius:1.65rem .35rem 1.65rem .35rem;
+}
+html[data-portfolio-design="dokhaneh"] .girih {opacity:.36}
+html[data-portfolio-design="mihanstack"] .rr-signal {border-radius:1rem;box-shadow:0 16px 52px #17345952}
+html[data-portfolio-design="mihanstack"] .hero .console {border-radius:1.2rem;border-color:#607db8;box-shadow:0 20px 48px #0f1c5870}
+html[data-portfolio-design="mihanstack"] .hero .cmd {outline:1px dashed color-mix(in srgb,var(--teal) 65%,transparent);outline-offset:3px}
+html[data-portfolio-design="dibs"] .rr-signal {border-radius:.65rem;box-shadow:6px 7px 0 var(--rr-accent),0 15px 38px #13121c32}
+html[data-portfolio-design="dibs"] .hero.split {border-radius:1.2rem;overflow:hidden;box-shadow:0 9px 25px #14102d35}
+html[data-portfolio-design="dibs"] .pitch {text-align:start}
+html[data-portfolio-design="dibs"] .pitch h1 {max-width:21ch}
+html[data-portfolio-design="hamyad"] .rr-signal {border-radius:2.4rem .55rem 2.4rem .55rem}
+html[data-portfolio-design="hamyad"] .hero .orbit-wrap {border-radius:50%;background:radial-gradient(circle at center,#8c6dff26,transparent 67%)}
+html[data-portfolio-design="sabr"] .rr-signal::before {background-image:repeating-linear-gradient(120deg,transparent 0 20px,#fff1 20px 21px),linear-gradient(108deg,var(--rr-brand),var(--rr-rich))}
+html[data-portfolio-design="sabr"] .hero h1 {margin-inline:auto}
+html[data-portfolio-design="sabr"] .race {border-radius:1.35rem}
+html[data-portfolio-design="marz"] .rr-signal {border-radius:.25rem;border:1px solid #8ba768}
+html[data-portfolio-design="marz"] .hero .board {border-radius:.35rem;box-shadow:7px 7px 0 #87a06861}
+html[data-portfolio-design="marz"] .rr-signal::before{
+  background-image:repeating-linear-gradient(0deg,transparent 0 1.5rem,#eff9cb14 1.5rem calc(1.5rem + 1px)),
+   repeating-linear-gradient(90deg,transparent 0 1.5rem,#eff9cb14 1.5rem calc(1.5rem + 1px)),
+   linear-gradient(120deg,var(--rr-brand),var(--rr-rich));
+}
+html[data-portfolio-design="ganjineh"] .rr-signal {border-radius:.4rem 1rem 1rem .4rem;border-inline-start:9px double var(--rr-accent)}
+html[data-portfolio-design="ganjineh"] .hero .stage {box-shadow:0 22px 60px #4c202d41;border-radius:.65rem}
+html[data-portfolio-design="ganjineh"] .rr-steps {border-top-style:dashed}
+html[data-portfolio-design="gosast"] .rr-signal {border-radius:1rem;box-shadow:5px 7px 0 #d69c9a,9px 12px 0 #b86e76}
+html[data-portfolio-design="gosast"] .rr-visual {border-radius:.35rem .8rem .35rem .8rem;border-style:dashed}
+html[data-portfolio-design="gosast"] .hero .wm {text-shadow:3px 3px 0 #fdcdd1}
+html[data-portfolio-design="gosast"] .hero h1 {margin-inline:auto}
+html[data-portfolio-design="flowpilot"] .rr-signal {border-radius:1.4rem 1.4rem .38rem .38rem}
+html[data-portfolio-design="flowpilot"] .hero h1 {margin-inline:auto}
+html[data-portfolio-design="flowpilot"] .hero .shot {border:1px solid color-mix(in srgb,var(--rr-accent) 50%,transparent);border-radius:1.1rem;box-shadow:0 17px 55px #0c253652}
+@media (max-width:43rem) {
+  html[data-portfolio-design] .rr-signal {grid-template-columns:1fr;gap:.9rem;min-height:0}
+  .rr-signal .rr-promise {font-size:clamp(1.6rem,6.6vw,2.45rem);margin-bottom:.9rem}
+  .rr-signal .rr-visual svg {max-height:5.9rem}
+  .rr-signal .rr-visual {padding:.4rem .6rem .52rem}
+  html[data-portfolio-design] :is(.hero,.pitch) h1 {font-size:clamp(1.9rem,6.9vw,3.25rem)!important}
+}
+@media (prefers-reduced-motion:reduce) {.rr-signal *{transition:none!important;animation:none!important}}
