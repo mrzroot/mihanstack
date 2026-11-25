@@ -28,6 +28,10 @@ payments and SMS without real money, real API keys or an internet connection.
 
 <img src="docs/dashboard-en.png" alt="MihanStack dashboard" width="860">
 
+
+
+[Project walkthrough · راهنمای عملی پروژه](docs/project-guide.html)
+
 </div>
 
 ### ⚡ Quickstart

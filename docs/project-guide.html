@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Test Iranian payments and OTP flows without credentials or live transactions.">
+<title>mihanstack · Project guide / راهنمای پروژه</title>
+<style>
+:root{--ink:#202638;--brand:#154064;--pastel:#afe3ff;font:1rem/1.6 system-ui,sans-serif;color:var(--ink);background:#f7f9fc}
+*{box-sizing:border-box}body{margin:0}a{color:inherit}a:focus-visible,pre:focus-visible{outline:3px solid #3569e2;outline-offset:4px}
+header{background:var(--brand);color:#fff;padding:2.5rem max(1.25rem,calc((100vw - 65rem)/2));border-bottom:.45rem solid var(--pastel)}
+header h1{font-size:clamp(2rem,8vw,4rem);margin:0;overflow-wrap:anywhere;line-height:1.15}header p{color:var(--pastel);margin:.45rem 0 1rem;font-size:1.1rem}
+nav{display:flex;flex-wrap:wrap;gap:.6rem 1rem}nav a{padding:.2rem .65rem;border:1px solid currentColor;border-radius:999px;text-decoration:none}
+nav a:hover{background:var(--pastel);color:var(--brand)}
+main{width:min(65rem,100% - 2.5rem);margin:2.5rem auto}section+section{margin-top:3rem}.intro span{font-size:.8rem;font-weight:700;color:var(--brand)}
+h2{font-size:clamp(1.4rem,4vw,2rem);line-height:1.3;margin:.25rem 0 1rem}.steps{padding:0;margin:0;display:grid;gap:.85rem;list-style:none;counter-reset:steps}
+.steps li{background:#fff;border:1px solid #d9e0ec;border-inline-start:5px solid var(--brand);border-radius:.75rem;padding:1rem 1.15rem;counter-increment:steps;min-width:0}
+h3{margin:0;line-height:1.3;font-size:1.1rem}h3::before{content:counter(steps);display:inline-grid;place-items:center;margin-inline-end:.5rem;background:var(--pastel);color:var(--brand);border-radius:50%;width:1.8rem;height:1.8rem}
+p{margin:.55rem 0}pre{overflow:auto;white-space:pre;font-size:.87rem;border-radius:.4rem;background:#202638;color:#fff;padding:.75rem;margin:.75rem 0 0}
+footer{padding:1.25rem;text-align:center;color:var(--brand);border-top:1px solid #d9e0ec}
+@media(min-width:52rem){.steps{grid-template-columns:repeat(3,minmax(0,1fr))}}
+</style>
+</head>
+<body><header><h1>mihanstack</h1><p lang="fa" dir="rtl" style="text-align:left">میهن‌استک · راهنمای پروژه</p>
+<nav aria-label="Page links"><a href="#en">English</a><a href="#fa" lang="fa">فارسی</a><a href="https://github.com/mrzroot/mihanstack">Source on GitHub</a><a href="https://github.com/mrzroot/mihanstack/releases">Releases</a><a href="./index.html">Project home</a></nav>
+</header><main><section id="en" lang="en" dir="ltr" aria-labelledby="title-en">
+<div class="intro"><span>PROJECT WALKTHROUGH</span><h2 id="title-en">Test Iranian payments and OTP flows without credentials or live transactions.</h2></div>
+<ol class="steps"><li><h3>Keep the service local</h3><p>Start the emulator and point only your development configuration at http://localhost:8585. Keep production provider URLs separate.</p><pre dir="ltr" tabindex="0"><code>npx github:mrzroot/mihanstack</code></pre></li>
+<li><h3>Exercise retry handling</h3><p>Run the duplicate_callback scenario, or use the webhook command to call your own development handler twice. The expected outcome is one order transition, not two.</p></li>
+<li><h3>Observe delivery locally</h3><p>Generate an OTP through the emulator, then fetch the last simulated message from the local admin API. Use test-only numbers and no production credentials.</p><pre dir="ltr" tabindex="0"><code>curl 'http://localhost:8585/_mihan/sms?receptor=09120000000&amp;last=1'</code></pre></li></ol>
+</section>
+<section id="fa" lang="fa" dir="rtl" aria-labelledby="title-fa">
+<div class="intro"><span>راهنمای عملی پروژه</span><h2 id="title-fa">پرداخت و رمز یک‌بارمصرف را بدون کلید واقعی و تراکنش زنده امتحان کنید.</h2></div>
+<ol class="steps"><li><h3>اجرای محلی</h3><p>فقط تنظیمات توسعه را به localhost:8585 وصل کنید و نشانی سرویس‌های واقعی را جدا نگه دارید.</p><pre dir="ltr" tabindex="0"><code>npx github:mrzroot/mihanstack</code></pre></li>
+<li><h3>آزمون پردازش تکراری</h3><p>سناریوی duplicate_callback را انتخاب کنید و مطمئن شوید سفارش با دریافت دوبارهٔ callback فقط یک‌بار تغییر وضعیت می‌دهد.</p></li>
+<li><h3>مشاهدهٔ پیام آزمایشی</h3><p>رمز آزمایشی بسازید و پیام آخر را از API محلی بخوانید؛ از اطلاعات و شماره‌های واقعی استفاده نکنید.</p><pre dir="ltr" tabindex="0"><code>curl 'http://localhost:8585/_mihan/sms?receptor=09120000000&amp;last=1'</code></pre></li></ol>
+</section></main>
+<footer>Review guide · not a release / <span lang="fa" dir="rtl">راهنمای بازبینی؛ نه نسخهٔ منتشرشده</span></footer></body></html>
