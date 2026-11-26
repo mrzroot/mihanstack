@@ -207,7 +207,7 @@ html[data-theme=light] pre{background:#fffdf8;color:#0b1230}
 html[data-theme=light] .note{border-color:rgba(138,92,12,.35);background:rgba(232,176,75,.1)}
 </style>
 <link rel="stylesheet" href="identity.css"><link rel="stylesheet" href="portfolio-reframe.css">
-<link rel="stylesheet" href="/assets/studio-mark.css"></head>
+<link rel="stylesheet" href="/assets/studio-mark.css"><link rel="stylesheet" href="/assets/portfolio/embed.css"><script defer src="/assets/portfolio/exhibit.js"></script></head>
 <body>
 <header class="top"><div class="wrap">
   <a class="brand" href="#"><img src="favicon.svg" alt=""> MihanStack <small>v0.1.1</small></a>
@@ -276,11 +276,32 @@ html[data-theme=light] .note{border-color:rgba(138,92,12,.35);background:rgba(23
   <figure class="shot"><img id="dash" src="dashboard-en.png" alt="MihanStack dashboard: services with scenario switches, live request log and SMS inbox" width="1440" height="900" loading="lazy"></figure>
   <p class="cap"><span lang="en">The built-in dashboard at localhost:8585: scenario switches, live redacted request log, chaos, webhooks and the SMS inbox. Fully offline, English and Persian.</span><span lang="fa">داشبورد داخلی در localhost:8585: کلید سناریوها، لاگ زندهٔ درخواست‌ها با حذف اطلاعات حساس، آشوب، وب‌هوک و صندوق پیامک. کاملاً آفلاین، فارسی و انگلیسی.</span></p>
 </div></section>
-<aside class="studio-project-entry" style="--entry-color:#91d4ff">
-  <img src="/assets/thumbs/mihanstack.webp" alt="" width="160" height="100" loading="lazy" decoding="async">
-  <div><strong>کال‌بک را بدون حساب واقعی آزمایش کن</strong><small>نمونه‌ها را روی سرویس محلی اجرا کن</small></div>
-  <a href="/playground/?project=mihanstack&amp;lang=fa">سناریو را امتحان کن ↗</a>
-</aside>
+<div class="atlas-embedded" data-motif="layers" style="--exhibit-hue:202"><section class="exhibit-studio" id="portfolio-example" data-project="mihanstack" data-motif="layers" data-state="0" aria-labelledby="portfolio-example-title">
+    <div class="exhibit-studio-head"><div><p class="exhibit-kicker"><span class="pf-en" lang="en">Illustrative sample</span><span class="pf-fa" lang="fa">دادهٔ نمونه</span></p><h2 id="portfolio-example-title"><span class="pf-en" lang="en">Open a layer</span><span class="pf-fa" lang="fa">یک لایه را باز کن</span></h2></div>
+       <a href="/projects/guide/mihanstack/"><span class="pf-en" lang="en">Interactive introduction</span><span class="pf-fa" lang="fa">معرفی تعاملی</span> <i class="exhibit-arrow" aria-hidden="true"></i></a></div>
+    <div class="exhibit-lab">
+      <div class="stage-picture" aria-hidden="true">
+        <div class="stage-sign"><i></i><i></i><i></i><strong dir="ltr">MihanStack</strong></div>
+
+        <div class="stage-track" dir="ltr"></div>
+        <div class="stage-evidence" dir="ltr"><span dir="auto">App · local</span><span dir="auto">Callback · pending</span></div>
+      </div>
+      <div class="stage-work">
+        <p><span class="pf-en" lang="en">You need to check how a local application responds to payment callbacks for success and failure.</span><span class="pf-fa" lang="fa">می‌خواهی واکنش برنامهٔ محلی به کال‌بک موفق و ناموفق پرداخت را بررسی کنی.</span></p>
+        <div class="stage-actions" role="group" aria-label="Example controls / کنترل‌های نمونه">
+          <button type="button" data-stage="1" aria-pressed="false"><span class="pf-en" lang="en">Replay fixtures against local services</span><span class="pf-fa" lang="fa">نمونه‌ها را روی سرویس محلی اجرا کن</span><i class="exhibit-arrow" aria-hidden="true"></i></button><button type="button" data-stage="2" aria-pressed="false"><span class="pf-en" lang="en">Use a production payment account</span><span class="pf-fa" lang="fa">از حساب پرداخت تولید استفاده کن</span><i class="exhibit-arrow" aria-hidden="true"></i></button>
+        </div>
+        <output class="stage-result" aria-live="polite"><span class="pf-en" lang="en">Try a response to see its effect.</span><span class="pf-fa" lang="fa">یک کار را انتخاب کن و اثرش را ببین.</span></output>
+        <div class="stage-foot">
+          <button type="button" data-stage="0" aria-pressed="true"><span class="pf-en" lang="en">Reset example</span><span class="pf-fa" lang="fa">بازنشانی نمونه</span></button>
+
+        </div>
+      </div>
+    </div>
+   </section>
+    <p class="exhibit-takeaway"><span class="pf-en" lang="en">Reproduce successful and failed callback states locally with the same fixture and compare the application result.</span><span class="pf-fa" lang="fa">با یک نمونهٔ ثابت، کال‌بک موفق و ناموفق را محلی بازسازی کن و نتیجهٔ برنامه را مقایسه کن.</span></p>
+    <script type="application/json" data-embed-project>{"entries":[{"id":"mihanstack","group":"systems","motif":"layers","color":"#91d4ff","title":["Test a callback without a live account","کال‌بک را بدون حساب واقعی آزمایش کن"],"brief":["You need to check how a local application responds to payment callbacks for success and failure.","می‌خواهی واکنش برنامهٔ محلی به کال‌بک موفق و ناموفق پرداخت را بررسی کنی."],"actions":[["Replay fixtures against local services","نمونه‌ها را روی سرویس محلی اجرا کن"],["Use a production payment account","از حساب پرداخت تولید استفاده کن"]],"outcomes":[["Both outcomes can be reproduced locally with the same fixture data.","هر دو حالت با دادهٔ نمونهٔ یکسان به‌صورت محلی تکرار می‌شوند."],["The production account introduces external state and conditions unrelated to the local test.","حساب تولید، وضعیت و شرایط خارجیِ نامرتبط با آزمون محلی را وارد می‌کند."]],"evidence":[["App · local","Callback · pending"],["Success · fixture","Failure · fixture"],["Production · external","Repeatability · reduced"]],"name":"MihanStack","kicker":["Local API emulator","شبیه‌ساز محلی API"],"intro":["Run local substitutes for Iranian payment and SMS APIs. Try scenarios such as a declined payment or delayed response before using a real provider.","جایگزین محلی API پرداخت و پیامک ایران؛ قبل از اتصال سرویس واقعی، خطای پرداخت یا تأخیر پاسخ را امتحان کنید."],"hint":["Run a fake payment success, then a decline. Check whether your app gives useful feedback after both responses.","یک پرداخت ساختگی موفق و بعد یک پرداخت ناموفق اجرا کنید. ببینید برنامه در هر دو حالت پیام مفیدی نشان می‌دهد یا نه."],"site":"/mihanstack/","source":"https://github.com/mrzroot/mihanstack","layout":"shelf","hue":202,"image":"/assets/thumbs/mihanstack.webp"}],"labels":{"map":["Project Atlas","اطلس پروژه‌ها"],"mapIntro":["Four ways to explore the projects. Choose a project to see what it does and open its interactive introduction.","چهار مسیر برای گشتن میان پروژه‌ها. یکی را انتخاب کن تا ببینی چه کار می‌کند و معرفی تعاملی‌اش را باز کنی."],"agents":["AI tooling","ابزارهای هوش مصنوعی"],"language":["Language and data","زبان و داده"],"systems":["Systems","سامانه‌ها"],"showcase":["Design and demos","طراحی و دمو"],"projects":["All projects","همهٔ پروژه‌ها"],"open":["Interactive introduction","معرفی تعاملی"],"test":["Try the example","نمونه را امتحان کن"],"story":["The situation","مسئله"],"reference":["Inspect the project","بررسی پروژه"],"source":["View source on GitHub","کد منبع در گیت‌هاب"],"demo":["Open project website","باز کردن سایت پروژه"],"guide":["Suggested first step","قدم اول پیشنهادی"],"sample":["Illustrative sample","دادهٔ نمونه"],"result":["What happens","نتیجه"],"choose":["Try a response to see its effect.","یک کار را انتخاب کن و اثرش را ببین."],"still":["Initial state","حالت اولیه"],"reset":["Reset example","بازنشانی نمونه"],"more":["Explore another project","یک پروژهٔ دیگر ببین"]}}</script>
+  </div>
 
 <section id="how"><div class="wrap">
   <div class="eyebrow"><span lang="en">How it works</span><span lang="fa">چطور کار می‌کند</span></div>
